@@ -22,3 +22,4 @@ TO-DO:
 * Cartesian Product of sets
 * Infinite sets
 * Subset relations from .NET HashSet
+* ...
