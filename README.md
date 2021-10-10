@@ -19,6 +19,7 @@ Currently supported classes are:
 
 TO-DO:
 
+* Basic math operations on numbers
 * Cartesian Product of sets
 * Infinite sets
 * Subset relations from .NET HashSet
