@@ -14,7 +14,7 @@ namespace Topos.Core
     public class Set : MathObject
     {
         #region core
-        HashSet<MathObject> elements;
+        protected HashSet<MathObject> elements;
 
         // Cardinality is a dummy variable. It is used to get the set cardinality.
         /// <summary>
@@ -67,62 +67,106 @@ namespace Topos.Core
             return result;
         }
 
+        /// <summary>
+        /// Converts the set to a list
+        /// </summary>
+        /// <returns>A list of MathObject types</returns>
+        public virtual List<MathObject> ToList()
+        {
+            return elements.ToList();
+        }
+
+        /// <summary>
+        /// Copies a set from another set
+        /// </summary>
+        /// <param name="set">The set to copy</param>
+        public static Set CopyFrom(Set set)
+        {
+            Set setcopy = new Set
+            {
+                elements = new HashSet<MathObject>(set.elements)
+            };
+            return setcopy;
+        }
+
         #endregion
 
-        #region fundamental_operations
+        #region binary_operations
 
         /// <summary>
         /// Applies union operation over two sets from HashSet implementation
         /// </summary>
         /// <param name="s1">First set</param>
         /// <param name="s2">Second set</param>
-        /// <returns></returns>
+        /// <returns>The union set</returns>
         public static Set Union(Set s1, Set s2)
         {
-            s1.elements.Union(s2.elements);
-            return s1;
+            // Construct copies.
+            Set t1 = CopyFrom(s1);
+            Set t2 = CopyFrom(s2);
+
+            t1.elements.UnionWith(t2.elements);
+            return t1; 
         }
 
         /// <summary>
         /// Applies generalized union operation over any number of sets from HashSet implementation
         /// </summary>
-        /// <returns></returns>
+        /// <param name="sets">A list of sets</param>
+        /// <returns>The union set</returns>
         public static Set Union(params Set[] sets)
         {
+            // Construct copies.
+            Set[] setsCopy = new Set[sets.Length];
+
+            for(int i = 0; i < sets.Length; i++)
+                setsCopy[i] = CopyFrom(sets[i]);
+
             // Throw exception for invalid number of inputs
-            if (sets.Length < 2)
+            if (setsCopy.Length < 2)
                 throw new ArgumentException();
 
             for(int i = 1; i < sets.Length; i++)
-                sets[0].elements.Union(sets[i].elements);
-            return sets[0];
+                setsCopy[0].elements.UnionWith(setsCopy[i].elements);
+            return setsCopy[0];
         }
 
         /// <summary>
         /// Applies intersection operation over two sets from HashSet implementation
         /// </summary>
-        /// <param name="s1"></param>
-        /// <param name="s2"></param>
-        /// <returns></returns>
+        /// <param name="s1">First set</param>
+        /// <param name="s2">Second set</param>
+        /// <returns>The intersection set</returns>
         public static Set Intersection(Set s1, Set s2)
         {
-            s1.elements.Intersect(s2.elements);
-            return s1;
+            // Construct copies.
+            Set t1 = CopyFrom(s1);
+            Set t2 = CopyFrom(s2);
+
+            t1.elements.IntersectWith(t2.elements);
+            return t1;
         }
 
         /// <summary>
         /// Applies generalized intersection operation over any number of sets from HashSet implementation
         /// </summary>
-        /// <returns></returns>
+        /// /// <param name="sets">A list of sets</param>
+        /// <returns>The intersection set</returns>
         public static Set Intersection(params Set[] sets)
         {
+            // Construct copies.
+            Set[] setsCopy = new Set[sets.Length];
+
+            for (int i = 0; i < sets.Length; i++)
+                setsCopy[i] = CopyFrom(sets[i]);
+
             // Throw exception for invalid number of inputs
-            if (sets.Length < 2)
+            if (setsCopy.Length < 2)
                 throw new ArgumentException();
 
-            for (int i = 1; i < sets.Length; i++)
-                sets[0].elements.Intersect(sets[i].elements);
-            return sets[0];
+            for (int i = 1; i < setsCopy.Length; i++)
+                setsCopy[0].elements.IntersectWith(setsCopy[i].elements);
+            return setsCopy[0];
         }
 
         #endregion
@@ -166,6 +210,44 @@ namespace Topos.Core
 
         #endregion
 
+        #region cartesian_product
+
+        /// <summary>
+        /// Computes the Cartesian product of two sets
+        /// </summary>
+        /// <param name="a">First set</param>
+        /// <param name="b">Second set</param>
+        /// <returns>The Cartesian product set</returns>
+        public static Set CartesianProduct(Set a, Set b)
+        {
+            Set cartesianSet = new Set();
+            foreach(MathObject a_elem in a.elements)
+            {
+                foreach(MathObject b_elem in b.elements)
+                {
+                    cartesianSet.Add(new OrderedTuple(a_elem, b_elem));
+                }
+            }
+            return cartesianSet;
+        }
+
+        /// <summary>
+        /// Computes the generalized Cartesian product of given sets
+        /// </summary>
+        /// <param name="sets">A list of sets</param> 
+        /// <returns>The Cartesian product set</returns>
+        public static Set CartesianProduct(params Set[] sets)
+        {
+            Set cartesianSet = sets[0];
+            for(int i = 1; i < sets.Length; i++)
+            {
+                cartesianSet = CartesianProduct(cartesianSet, sets[i]);
+            }
+            return cartesianSet;
+        }
+
+        #endregion
+
         #region logical_checks
 
         /// <summary>
@@ -173,7 +255,47 @@ namespace Topos.Core
         /// </summary>
         /// <returns>Whether the set is empty or not</returns>
         public bool IsEmpty() => elements.Count == 0;
-        
+
+        /// <summary>
+        /// Checks whether the set is a singleton or not
+        /// </summary>
+        /// <returns>Whether the set is a singleton or not</returns>
+        public bool IsSingleton() => elements.Count == 1;
+
+        /// <summary>
+        /// Checks whether the set contains the given element or not
+        /// </summary>
+        /// <param name="element">The element to check its existence</param>
+        /// <returns></returns>
+        public bool Contains(MathObject element) => elements.Contains(element);
+
+        /// <summary>
+        /// Checks whether the set is a subset of the given set, including a trivial one
+        /// </summary>
+        /// <param name="superSet">The assumed superset of the given set</param>
+        /// <returns>Whether the set is a subset of the given set or not</returns>
+        public bool IsSubsetOf(Set superSet) => elements.IsSubsetOf(superSet.elements);
+
+        /// <summary>
+        /// Checks whether the set is a proper subset of the given set
+        /// </summary>
+        /// <param name="superSet">The assumed superset of the given set</param>
+        /// <returns>Whether the set is a subset of the given set or not</returns>
+        public bool IsProperSubsetOf(Set superSet) => elements.IsProperSubsetOf(superSet.elements);
+
+        /// <summary>
+        /// Checks whether the set is a superset of the given set, including a trivial one
+        /// </summary>
+        /// <param name="subset">The assumed subset of the given set</param>
+        /// <returns>Whether the set is a superset of the given set or not</returns>
+        public bool IsSupersetOf(Set subset) => elements.IsSupersetOf(subset.elements);
+
+        /// <summary>
+        /// Checks whether the set is a proper superset of the given set
+        /// </summary>
+        /// <param name="subset">The assumed subset of the given set</param>
+        /// <returns>Whether the set is a superset of the given set or not</returns>
+        public bool IsProperSupersetOf(Set subset) => elements.IsProperSupersetOf(subset.elements);
 
         #endregion
 
@@ -197,7 +319,7 @@ namespace Topos.Core
                 return leftBracket + listString + rightBracket;
             } // Use empty set notation if the set is empty.
             else return "Ø";
-    }
+        }
 
         public override string ToString()
         {
@@ -214,10 +336,21 @@ namespace Topos.Core
         {
             return !a.elements.SetEquals(b.elements);
         }
-
+        
         public override bool Equals(object obj)
         {
-            return this == (Set)obj;
+            return this == (Set) obj;
+        }
+
+        // Two separate collection types can contain same values but different references.
+        // When that happens, their collections return different hash codes.
+        // A manual implementation is required to overcome this problem.
+        public override int GetHashCode()
+        {
+            int hashCode = 0;
+            foreach (MathObject m in elements)
+                hashCode ^= m.GetHashCode();
+            return hashCode;
         }
         #endregion
     }

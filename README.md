@@ -15,12 +15,11 @@ Currently supported classes are:
         * Rational
       * Complex
   * Set
-* Gcd
+    * OrderedTuple
+* Division
 
 TO-DO:
 
 * Basic math operations on numbers
-* Cartesian Product of sets
 * Infinite sets
-* Subset relations from .NET HashSet
 * ...

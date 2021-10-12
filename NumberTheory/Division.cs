@@ -5,7 +5,10 @@ using System.Text;
 
 namespace Topos.NumberTheory
 {
-    public class Gcd
+    /// <summary>
+    /// Division is a class that includes the functions related to the integer division.
+    /// </summary>
+    public static class Division
     {
         /// <summary>
         /// Computes the greatest common divisor of two integers.
@@ -13,7 +16,7 @@ namespace Topos.NumberTheory
         /// <param name="a">First integer</param>
         /// <param name="b">Second integer</param>
         /// <returns>Gcd of given two integers</returns>
-        public static Integer ComputeGcd(Integer a, Integer b)
+        public static Integer Gcd(Integer a, Integer b)
         {
             // Pass integers by value to avoid modifying reference
             // It is proven that gcd(a, b) = gcd(-a, b) = gcd(a, -b) = gcd(-a, -b),
@@ -52,7 +55,7 @@ namespace Topos.NumberTheory
         /// </summary>
         /// <param name="numbers">List of integers</param>
         /// <returns>Gcd of the listed integers</returns>
-        public static Integer ComputeGcd(params Integer[] numbers)
+        public static Integer Gcd(params Integer[] numbers)
         {
             // Throw exception for invalid number of inputs
             if (numbers.Length < 2)
@@ -60,7 +63,32 @@ namespace Topos.NumberTheory
 
             // Use recursive definition to compute Gcd from left to right for each number
             for(int i = 0; i < numbers.Length - 1; i++)
-                numbers[i + 1] = ComputeGcd(numbers[i], numbers[i + 1]);
+                numbers[i + 1] = Gcd(numbers[i], numbers[i + 1]);
+
+            // Return the result
+            return numbers[numbers.Length - 1];
+        }
+
+        /// <summary>
+        /// Computes the least common multiple of two integers.
+        /// </summary>
+        /// <param name="a">First integer</param>
+        /// <param name="b">Second integer</param>
+        /// <returns></returns>
+        public static Integer Lcm(Integer a, Integer b)
+        {
+            return (a * b) / Gcd(a, b);
+        }
+
+        public static Integer Lcm(params Integer[] numbers)
+        {
+            // Throw exception for invalid number of inputs
+            if (numbers.Length < 2)
+                throw new ArgumentException();
+
+            // Use recursive definition to compute Lcm from left to right for each number
+            for (int i = 0; i < numbers.Length - 1; i++)
+                numbers[i + 1] = Lcm(numbers[i], numbers[i + 1]);
 
             // Return the result
             return numbers[numbers.Length - 1];

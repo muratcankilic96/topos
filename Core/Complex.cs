@@ -86,5 +86,6 @@ namespace Topos.Core
         }
 
         public static implicit operator Complex((double, double) t) => new Complex(t.Item1, t.Item2);
+        public static implicit operator Complex(Real q) => new Complex(q.Value, 0);
     }
 }

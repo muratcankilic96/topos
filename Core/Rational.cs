@@ -78,7 +78,7 @@ namespace Topos.Core
                 }
 
                 // Compute Gcd to simplify the representation of rational number
-                int divisor = Gcd.ComputeGcd((int)numerator, denominator);
+                int divisor = Division.Gcd((int)numerator, denominator);
 
                 // Assign values
                 Numerator = (int)(numerator / divisor);
