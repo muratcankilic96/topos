@@ -74,12 +74,17 @@ namespace Topos.NumberTheory
         /// </summary>
         /// <param name="a">First integer</param>
         /// <param name="b">Second integer</param>
-        /// <returns></returns>
+        /// <returns>Lcm of given two integers</returns>
         public static Integer Lcm(Integer a, Integer b)
         {
             return (a * b) / Gcd(a, b);
         }
 
+        /// <summary>
+        /// Computes the least common multiple of the integers listed.
+        /// </summary>
+        /// <param name="numbers">List of integers</param>
+        /// <returns>Lcm of the listed integers</returns>
         public static Integer Lcm(params Integer[] numbers)
         {
             // Throw exception for invalid number of inputs
