@@ -32,7 +32,9 @@ namespace Topos.Core
 
         public override bool Equals(object obj)
         {
-            return this == (Invariant)obj;
+            if (obj is Invariant)
+                return this == (Invariant)obj;
+            else return false;
         }
 
         public override int GetHashCode()

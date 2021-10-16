@@ -63,8 +63,10 @@ namespace Topos.Core
                 {
                     OrderedTuple orderedTuple = (OrderedTuple)m;
                     var orderedTupleList = orderedTuple.ToList();
+                    int id = elementsList.FindIndex(idx => idx.Equals(m));
+                    elementsList.InsertRange(id, orderedTupleList);
                     elementsList.Remove(m);
-                    elements = orderedTupleList.Concat(elementsList).ToArray();
+                    elements = elementsList.ToArray();
                 }
             }
 
@@ -100,6 +102,84 @@ namespace Topos.Core
         }
         #endregion
 
+        #region logical_checks
+
+        /// <summary>
+        /// Checks whether the ordered tuple completely consists of numbers or not.
+        /// </summary>
+        /// <returns>Whether the ordered tuple completely consists of numbers or not</returns>
+        public override bool IsNumberCollection()
+        {
+            foreach (MathObject m in tuple)
+                if (!(m is Number)) return false;
+            return true;
+        }
+        #endregion
+
+        #region number_operations
+
+        // Checks whether two ordered tuples are of the same length and contains only Real numbers.
+        private static void NumericControl(OrderedTuple a, OrderedTuple b)
+        {
+            if (a.Length != b.Length)
+                throw new ToposExceptions.DimensionMismatchException(a.Length, b.Length);
+
+            if(!a.IsNumberCollection() || !b.IsNumberCollection())
+                    throw new ToposExceptions.InvariantException();
+        }
+
+        // Operations between ordered tuples are overridden. 
+        // Supports only Real numbers.
+        // TODO: Expand the support for Complex numbers.
+        public static OrderedTuple operator +(OrderedTuple a, OrderedTuple b)
+        {
+            // Throw exception if something is wrong.
+            NumericControl(a, b);
+
+            Real[] operatedOrderedTuple = new Real[a.Length];
+            for (int i = 0; i < a.Length; i++) 
+                    operatedOrderedTuple[i] = (Real)a.tuple[i] + (Real)b.tuple[i];
+
+            return new OrderedTuple(operatedOrderedTuple.ToArray());
+        }
+
+        public static OrderedTuple operator -(OrderedTuple a, OrderedTuple b)
+        {
+            // Throw exception if something is wrong.
+            NumericControl(a, b);
+
+            Real[] operatedOrderedTuple = new Real[a.Length];
+            for (int i = 0; i < a.Length; i++)
+                operatedOrderedTuple[i] = (Real)a.tuple[i] - (Real)b.tuple[i];
+
+            return new OrderedTuple(operatedOrderedTuple.ToArray());
+        }
+
+        public static OrderedTuple operator *(OrderedTuple a, OrderedTuple b)
+        {
+            // Throw exception if something is wrong.
+            NumericControl(a, b);
+
+            Real[] operatedOrderedTuple = new Real[a.Length];
+            for (int i = 0; i < a.Length; i++)
+                operatedOrderedTuple[i] = (Real)a.tuple[i] * (Real)b.tuple[i];
+
+            return new OrderedTuple(operatedOrderedTuple.ToArray());
+        }
+
+        public static OrderedTuple operator /(OrderedTuple a, OrderedTuple b)
+        {
+            // Throw exception if something is wrong.
+            NumericControl(a, b);
+
+            Real[] operatedOrderedTuple = new Real[a.Length];
+            for (int i = 0; i < a.Length; i++)
+                operatedOrderedTuple[i] = (Real)a.tuple[i] / (Real)b.tuple[i];
+
+            return new OrderedTuple(operatedOrderedTuple.ToArray());
+        }
+        #endregion
+
         #region override
         // Represent a tuple of the form (a, b, ...).
         private string RepresentTuple()
@@ -113,7 +193,7 @@ namespace Topos.Core
             }
             return "(" + listString + ")";
         }
-        
+
         public override string ToString()
         {
             return RepresentTuple();
@@ -132,7 +212,9 @@ namespace Topos.Core
 
         public override bool Equals(object obj)
         {
-            return this == (Set) obj;
+            if (obj is OrderedTuple)
+                return this == (OrderedTuple)obj;
+            else return false;
         }
 
         public override int GetHashCode()

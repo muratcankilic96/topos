@@ -10,9 +10,17 @@ namespace Topos.Core
     /// </summary>
     public class Rational : Real
     {
+        // Precision a read-only property of rationals that provided to prevent floating-point precision problems.
+        private readonly int PRECISION = 6;
+        /// <summary>
+        /// Upper part of the fraction.
+        /// </summary>
         public Integer Numerator { get; set; }
 
         private Integer m_denominator;
+        /// <summary>
+        /// Lower part of the fraction.
+        /// </summary>
         public Integer Denominator
         {
             get => m_denominator; 
@@ -67,7 +75,7 @@ namespace Topos.Core
             if (decim != 0)
             {
                 // Assume the number is the form decim/1, where numerator is not necessarily an integer
-                double numerator = Math.Round(decim, 6);
+                double numerator = Math.Round(decim, PRECISION);
                 int denominator = 1;
 
                 // Repeat until numerator is an integer
@@ -86,16 +94,58 @@ namespace Topos.Core
             }
         }
 
-        public static implicit operator Rational((int, int) i) => new Rational(i.Item1, i.Item2);
-        public static implicit operator Rational(double d) => new Rational(d);
-        public static implicit operator double(Rational q) => q.Value;
-
         public override string ToString()
         {
             if (Denominator == 1 || Denominator == -1)
                 return (Denominator.Value * Numerator.Value).ToString();
             else
                 return Numerator.Value + "/" + Denominator.Value;
+        }
+
+        public static implicit operator Rational((int, int) i) => new Rational(i.Item1, i.Item2);
+        public static implicit operator Rational(double d) => new Rational(d);
+        public static implicit operator Rational(Complex c) => new Rational(c.Real.Value);
+
+        // Operations between rational numbers are overridden.
+        
+        //// Additive operations use the similar pattern, so they are combined in single function.
+        private static Rational Additive(Rational a, Rational b)
+        {
+            int denominator = Division.Lcm(a.Denominator, b.Denominator);
+            int leftMultiplier = denominator / a.Denominator;
+            int rightMultiplier = denominator / b.Denominator;
+
+            return new Rational(a.Numerator * leftMultiplier + b.Numerator * rightMultiplier, denominator);
+        }
+
+        public static Rational operator +(Rational a, Rational b)
+        {
+            return Additive(a, b);
+        }
+
+        public static Rational operator -(Rational a, Rational b)
+        {
+            return Additive(a, -b);
+        }
+
+        public static Rational operator *(Rational a, Rational b)
+        {
+            return new Rational(a.Numerator * b.Numerator, a.Denominator * b.Denominator);
+        }
+
+        public static Rational operator /(Rational a, Rational b)
+        {
+            return new Rational(a.Numerator * b.Denominator, a.Denominator * b.Numerator);
+        }
+
+        /// <summary>
+        /// Gets the additive inverse of a rational number. The negation is applied onto numerator part for simplicity purposes.
+        /// </summary>
+        /// <param name="q">The rational number</param>
+        /// <returns>Additive inverse of the rational number</returns>
+        public static Rational operator -(Rational q)
+        {
+            return new Rational(-q.Numerator, q.Denominator);
         }
     }
 }

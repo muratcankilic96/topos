@@ -94,6 +94,22 @@ namespace Topos.Core
         #region binary_operations
 
         /// <summary>
+        /// Applies exclusion operation over two sets from HashSet implementation
+        /// </summary>
+        /// <param name="s1">First set</param>
+        /// <param name="s2">Second set</param>
+        /// <returns></returns>
+        public static Set Exclusion(Set s1, Set s2)
+        {
+            // Construct copies.
+            Set t1 = CopyFrom(s1);
+            Set t2 = CopyFrom(s2);
+
+            t1.elements.ExceptWith(t2.elements);
+            return t1;
+        }
+
+        /// <summary>
         /// Applies union operation over two sets from HashSet implementation
         /// </summary>
         /// <param name="s1">First set</param>
@@ -297,6 +313,30 @@ namespace Topos.Core
         /// <returns>Whether the set is a superset of the given set or not</returns>
         public bool IsProperSupersetOf(Set subset) => elements.IsProperSupersetOf(subset.elements);
 
+        /// <summary>
+        /// Checks whether the set is a set of numbers or not.
+        /// </summary>
+        /// <returns>Whether the set is a set of numbers or not</returns>
+        public virtual bool IsNumberCollection()
+        {
+            foreach(MathObject m in elements)
+                if (!(m is Number)) return false;
+            return true;
+        }
+
+        /// <summary>
+        /// Checks whether the set is finite or not.
+        /// </summary>
+        /// <returns>Whether the set is finite or not</returns>
+        public virtual bool IsFinite() => true;
+
+        /// <summary>
+        /// Checks whether the set is countable or not.
+        /// Every finite set is countable.
+        /// </summary>
+        /// <returns>Whether the set is countable or not</returns>
+        public virtual bool IsCountable() => true;
+
         #endregion
 
         #region override
@@ -339,7 +379,9 @@ namespace Topos.Core
         
         public override bool Equals(object obj)
         {
-            return this == (Set) obj;
+            if (obj is Set)
+                return this == (Set)obj;
+            else return false;
         }
 
         // Two separate collection types can contain same values but different references.

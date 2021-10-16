@@ -32,7 +32,7 @@ namespace Topos.Core
         public override string ToString() => Value.ToString();
 
         public static implicit operator Real(double d) => new Real(d);
-        public static implicit operator double(Real r) => r.Value;
+        public static implicit operator double(Real r) => (double) r.Value;
         public static implicit operator Real(Complex c) => new Real(c.Real);
 
         // All real numbers are comparable. Hence every real number also have their comparison operators.
@@ -48,14 +48,10 @@ namespace Topos.Core
 
         public override bool Equals(object obj) 
         {
-            try
-            {
+            if (obj is Real)
                 return this == (Real)obj;
-            } catch(InvalidCastException)
-            {
-                return false;
-            }
-            
+            else return false;
+
         }
 
         public override int GetHashCode()

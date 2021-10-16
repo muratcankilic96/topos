@@ -14,7 +14,7 @@ namespace Topos.Core
         public Real Real { get; set; }
 
         /// <summary>
-        /// Value represents the magnitude of a complex number.
+        /// Synonymous with magnitude.
         /// </summary>
         public override double Value
         {
@@ -22,6 +22,14 @@ namespace Topos.Core
             {
                 return Sqrt(Pow(Imaginary.Value, 2) + Pow(Real.Value, 2));
             }
+        }
+
+        /// <summary>
+        /// Magnitude represents the magnitude of a complex number.
+        /// </summary>
+        public double Magnitude
+        {
+            get => Value;
         }
 
         /// <summary>
@@ -85,7 +93,33 @@ namespace Topos.Core
             return (Real, Imaginary).GetHashCode();
         }
 
+        // Operations between complex numbers are overridden.
+        public static Complex operator +(Complex a, Complex b)
+        {
+            return new Complex(a.Real.Value + b.Real.Value, a.Imaginary.Value + b.Imaginary.Value);
+        }
+
+        public static Complex operator -(Complex a, Complex b)
+        {
+            return new Complex(a.Real.Value - b.Real.Value, a.Imaginary.Value - b.Imaginary.Value);
+        }
+
+        public static Complex operator *(Complex a, Complex b)
+        {
+            return new Complex(a.Real.Value * b.Real.Value - a.Imaginary.Value * b.Imaginary.Value, 
+                a.Real.Value * b.Imaginary.Value + a.Imaginary.Value * b.Real.Value);
+        }
+
+        public static Complex operator /(Complex a, Complex b)
+        {
+            Real denom = b.Real.Value * b.Real.Value + b.Imaginary.Value * b.Imaginary.Value;
+            return new Complex((a.Real.Value * b.Real.Value + a.Value * b.Value) / denom.Value,
+                (a.Imaginary.Value * b.Real.Value - a.Real.Value * b.Imaginary.Value) / denom.Value);
+        }
+
         public static implicit operator Complex((double, double) t) => new Complex(t.Item1, t.Item2);
-        public static implicit operator Complex(Real q) => new Complex(q.Value, 0);
+        public static implicit operator Complex(Real r) => new Complex(r.Value, 0);
+        public static implicit operator Complex(Integer i) => new Complex((int) i.Value, 0);
+        public static implicit operator Complex(Rational q) => new Complex(q.Value, 0);
     }
 }

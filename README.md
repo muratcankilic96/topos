@@ -17,9 +17,24 @@ Currently supported classes are:
   * Set
     * OrderedTuple
 * Division
+* Exception (.NET)
+  * DimensionMismatchException
+  * InvariantException
 
 TO-DO:
 
-* Basic math operations on numbers
-* Infinite sets
+* Primality tests
+* Prime factorization
+* Modular arithmetic 
+  * Mod operation
+  * Order
+  * Primitive root
+  * Index
+  * Quadratic residue
+  * Legendre and Jacobi symbols
+* Relations and functions
+* Infinite sets (Countably - Uncountably)
 * ...
+
+ISSUES:
+* Complex number operations between ordered tuples are not supported.
