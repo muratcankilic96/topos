@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using static System.Math;
 using Topos.Core;
 using System.Text;
 
@@ -10,6 +10,41 @@ namespace Topos.NumberTheory
     /// </summary>
     public static class Division
     {
+        /// <summary>
+        /// Checks whether Integer a is divisible by Integer b.
+        /// Implemented as an extension method.
+        /// </summary>
+        /// <param name="a">Integer to be divided by b</param>
+        /// <param name="b">Integer that divides a</param>
+        /// <returns></returns>
+        public static bool IsDivisibleBy(this Integer a, Integer b)
+        {
+            // Ignore signs.
+            return Abs(a) % Abs(b) == 0;
+        }
+
+        /// <summary>
+        /// Checks whether given two integers are relatively prime.
+        /// Implemented as an extension method.
+        /// </summary>
+        /// <param name="a">First integer</param>
+        /// <param name="b">Second integer</param>
+        /// <returns>Whether given two integers are relatively prime</returns>
+        public static bool IsRelativelyPrime(this Integer a, Integer b)
+        {
+            return Gcd(a, b) == 1;
+        }
+
+        /// <summary>
+        /// Checks whether the integers listed are relatively prime.
+        /// </summary>
+        /// <param name="numbers">List of integers</param>
+        /// <returns>Whether the integers listed are relatively prime</returns>
+        public static bool IsRelativelyPrime(Integer[] numbers)
+        {
+            return Gcd(numbers) == 1;
+        }
+
         /// <summary>
         /// Computes the greatest common divisor of two integers.
         /// </summary>

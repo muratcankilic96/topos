@@ -1,7 +1,4 @@
-﻿using System;
-using static System.Math;
-using System.Collections.Generic;
-using System.Text;
+﻿using static System.Math;
 
 namespace Topos.Core
 {

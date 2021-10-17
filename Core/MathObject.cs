@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Topos.Core
+﻿namespace Topos.Core
 {
     /// <summary>
     /// A MathObject is the foundation base of sets and elements. It cannot

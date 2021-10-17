@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Topos.Core.ToposExceptions
 {
-    class DimensionMismatchException : Exception
+    class DimensionMismatchException : ToposException
     {
         public DimensionMismatchException()
         {

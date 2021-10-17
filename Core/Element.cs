@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Topos.Core
+﻿namespace Topos.Core
 {
     /// <summary>
     /// Elements are the atomic mathematical objects. They cannot be divided into further components.
@@ -10,5 +6,10 @@ namespace Topos.Core
     /// </summary>
     public abstract class Element : MathObject
     {
+        public static implicit operator Element(string s) => new Invariant(s);
+        public static implicit operator Element(double d) => new Real(d);
+        public static implicit operator Element((double, double) t) => new Complex(t.Item1, t.Item2);
+        public static implicit operator Element((int, int) t) => new Rational(t.Item1, t.Item2);
+        public static implicit operator Element(int i) => new Integer(i);
     }
 }

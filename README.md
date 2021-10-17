@@ -6,6 +6,7 @@ My implementation takes .NET HashSet<T> as basis. However, Sets are not generic 
 
 Currently supported classes are:
 
+Topos.Core
 * MathObject *(abstract)*
   * Element
     * Invariant
@@ -14,19 +15,31 @@ Currently supported classes are:
         * Integer
         * Rational
       * Complex
+	* Exponential
   * Set
     * OrderedTuple
-* Division
-* Exception (.NET)
-  * DimensionMismatchException
-  * InvariantException
+  
+Topos.Core.Generic
+* MathObject *(abstract)* (from Topos.Core)
+  * GenericSet<T>
+	
+Topos.Core.Exceptions
+* Exception *(.NET)*
+  * ToposException
+    * DimensionMismatchException
+    * InvariantException
+    * ComplexDomainException
+
+Topos.NumberTheory
+* Division *(static)*
+* Congruence *(abstract)*
+  * IntegerCongruence
+* NumberTheoreticFunctions *(static)*
+* Primality *(static)*
 
 TO-DO:
 
-* Primality tests
-* Prime factorization
-* Modular arithmetic 
-  * Mod operation
+* Modular arithmetic over integers
   * Order
   * Primitive root
   * Index
@@ -38,3 +51,4 @@ TO-DO:
 
 ISSUES:
 * Complex number operations between ordered tuples are not supported.
+* Complex number operations over exponential representations are not supported.

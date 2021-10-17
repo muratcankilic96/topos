@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Topos.Core.ToposExceptions
 {
-    class InvariantException : Exception
+    class InvariantException : ToposException
     {
-        public InvariantException() : base($"Invariant member is not a number.")
+        public InvariantException() : base("Invariant member is not a number.")
         {
 
         }

@@ -98,7 +98,7 @@ namespace Topos.Core
         /// </summary>
         /// <param name="s1">First set</param>
         /// <param name="s2">Second set</param>
-        /// <returns></returns>
+        /// <returns>The exclusion result set</returns>
         public static Set Exclusion(Set s1, Set s2)
         {
             // Construct copies.
@@ -189,6 +189,11 @@ namespace Topos.Core
 
         #region power_set
 
+        /// <summary>
+        /// Gets the power set of the set. Cardinality of a power set is 2^N, 
+        /// where N is the cardinality of the input set.
+        /// </summary>
+        /// <returns>The power set of the set</returns>
         public Set PowerSet()
         {
             // Convert the collection into a list to track indices of elements
@@ -229,7 +234,7 @@ namespace Topos.Core
         #region cartesian_product
 
         /// <summary>
-        /// Computes the Cartesian product of two sets
+        /// Computes the Cartesian product of two sets.
         /// </summary>
         /// <param name="a">First set</param>
         /// <param name="b">Second set</param>
@@ -282,7 +287,7 @@ namespace Topos.Core
         /// Checks whether the set contains the given element or not
         /// </summary>
         /// <param name="element">The element to check its existence</param>
-        /// <returns></returns>
+        /// <returns>Whether the elements exists</returns>
         public bool Contains(MathObject element) => elements.Contains(element);
 
         /// <summary>

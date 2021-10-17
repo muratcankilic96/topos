@@ -24,6 +24,11 @@ namespace Topos.Core
             get { return (uint)tuple.Count; }
         }
 
+        public MathObject this[int i]
+        {
+            get => Project(i); 
+        }
+
         // Constructs the set by Kuratowski's definition using recursion
         private Set KuratowskiConstruction(MathObject[] elements)
         {
