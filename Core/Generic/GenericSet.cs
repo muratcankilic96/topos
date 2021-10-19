@@ -83,6 +83,12 @@ namespace Topos.Core.Generic
         public virtual List<T> ToList() => (List<T>)(object)set.ToList();
 
         /// <summary>
+        /// Converts the generic set to an array
+        /// </summary>
+        /// <returns>An array of generic types</returns>
+        public virtual T[] ToArray() => (T[])set.ToArray();
+
+        /// <summary>
         /// Copies a generic set from another generic set
         /// </summary>
         /// <param name="set">The generic set to copy</param>

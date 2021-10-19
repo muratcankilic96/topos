@@ -9,7 +9,7 @@ namespace Topos.NumberTheory
     /// Congruence relations provide equivalence relations on an algebraic structure.
     /// </summary>
     /// <typeparam name="T">Number system to be implemented</typeparam>
-    public abstract class Congruence<T> where T: Number
+    public abstract class Congruence<T>: MathObject where T: Number
     {
         public abstract T Base { get; set; }
         public abstract bool IsCongruent(T a, T b);

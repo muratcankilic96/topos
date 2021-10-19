@@ -77,6 +77,15 @@ namespace Topos.Core
         }
 
         /// <summary>
+        /// Converts the set to an array
+        /// </summary>
+        /// <returns>An array of MathObject types</returns>
+        public virtual MathObject[] ToArray()
+        {
+            return elements.ToArray();
+        }
+
+        /// <summary>
         /// Copies a set from another set
         /// </summary>
         /// <param name="set">The set to copy</param>

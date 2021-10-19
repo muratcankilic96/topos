@@ -98,12 +98,33 @@ namespace Topos.Core
         }
 
         /// <summary>
+        /// Creates a copy of the ordered tuple in reverse order.
+        /// </summary>
+        /// <returns>Ordered tuple in reverse order</returns>
+        public OrderedTuple Inverse()
+        {
+            var tupleCopy = new List<MathObject>(tuple);
+            tupleCopy.Reverse();
+
+            return new OrderedTuple(tupleCopy.ToArray());
+        }
+
+        /// <summary>
         /// Converts the ordered tuple to a list
         /// </summary>
         /// <returns>A list of MathObject types</returns>
         public override List<MathObject> ToList()
         {
             return tuple.ToList();
+        }
+
+        /// <summary>
+        /// Converts the ordered tuple to an array
+        /// </summary>
+        /// <returns>An array of MathObject types</returns>
+        public override MathObject[] ToArray()
+        {
+            return tuple.ToArray();
         }
         #endregion
 
@@ -224,7 +245,7 @@ namespace Topos.Core
 
         public override int GetHashCode()
         {
-            return tuple.GetHashCode();
+            return base.GetHashCode();
         }
         #endregion
     }
