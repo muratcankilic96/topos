@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Topos.Core
 {
@@ -53,9 +52,7 @@ namespace Topos.Core
         /// <param name="obj">The element to be added</param>
         public virtual void Add(MathObject obj)
         {
-            // To prevent Russell's Paradox, ZFC cannot allow a set that contains itself.
-            if(!obj.Equals(this))
-                elements.Add(obj);
+            elements.Add(obj);
         }
 
         /// <summary>

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Topos.Core
 {
@@ -20,12 +18,12 @@ namespace Topos.Core
         /// <summary>
         /// Domain of the relation, which is the input set of the relation.
         /// </summary>
-        public Set Domain { get; }
+        public Set Domain { get; protected set; }
 
         /// <summary>
         /// Codomain of the relation, which is the output set of the relation.
         /// </summary>
-        public Set Codomain { get; }
+        public Set Codomain { get; protected set; }
 
         /// <summary>
         /// Range of the relation, which is the subset of the output set of the relation,
@@ -34,6 +32,7 @@ namespace Topos.Core
         public Set Range 
         {
             get => ImageOf(Domain);
+            protected set { }
         }
 
         /// <summary>
@@ -43,6 +42,7 @@ namespace Topos.Core
         public Set PreImage
         {
             get => PreImageOf(Codomain);
+            protected set { }
         }
         
         // Checking the properties of a relation can be computationally comprehensive.
@@ -51,6 +51,11 @@ namespace Topos.Core
 
         /// <summary>
         /// Defines an empty binary relation.
+        /// </summary>
+        public BinaryRelation(): base() { }
+
+        /// <summary>
+        /// Defines a null binary relation.
         /// </summary>
         /// <param name="a">Domain set of relation</param>
         /// <param name="b">Codomain set of relation</param>
@@ -248,16 +253,16 @@ namespace Topos.Core
         /// <returns>Whether aRb is valid.</returns>
         public bool IsRelated(MathObject a, MathObject b)
         {
-            return Map(a).Contains(b);
+            return elements.Contains(new OrderedTuple(a, b));
         }
 
         /// <summary>
-        /// Checks whether the binary relation R is universal or not
+        /// Checks whether the binary relation R is trivial or not
         /// </summary>
-        /// <returns>Whether the binary relation is universal or not</returns>
-        public bool IsUniversal()
+        /// <returns>Whether the binary relation is trivial or not</returns>
+        public bool IsTrivial()
         {
-            // Definition: An universal binary operation R over sets A and B holds the property R = A x B.
+            // Definition: An trivial binary operation R over sets A and B holds the property R = A x B.
             // Theorem: |A x B| = |A| * |B|.
             return Cardinality == Domain.Cardinality * Codomain.Cardinality;
         }
@@ -439,6 +444,48 @@ namespace Topos.Core
             return s;
         }
         #endregion
+        #endregion
+
+        #region override
+        public override string ToString()
+        {
+            return $"[Binary relation]\n[Domain]: {Domain}" +
+                $"\n[Codomain]: {Codomain}\n" +
+                $"[Mappings]: {base.ToString()}";
+        }
+
+        public static bool operator ==(BinaryRelation a, BinaryRelation b)
+        {
+            return a.Domain.Equals(b.Domain) && a.Codomain.Equals(b.Codomain) && a.elements.SetEquals(b.elements);
+        }
+
+        public static bool operator !=(BinaryRelation a, BinaryRelation b)
+        {
+            return !a.Equals(b);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is BinaryRelation)
+                return this == (BinaryRelation)obj;
+            else return false;
+        }
+
+        // Binary relations consist of three objects. All of them must be checked.
+        public override int GetHashCode()
+        {
+            int hashCode = 0;
+
+            foreach (MathObject m in Domain.ToList())
+                hashCode ^= m.GetHashCode();
+
+            foreach (MathObject m in Codomain.ToList())
+                hashCode ^= m.GetHashCode();
+
+            hashCode ^= base.GetHashCode();
+
+            return hashCode;
+        }
         #endregion
     }
 }

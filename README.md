@@ -21,6 +21,7 @@ Topos.Core
   * Set
     * OrderedTuple
 	* BinaryRelation
+	  * Function
   
 Topos.Core.Generic
 * MathObject *(abstract)* (from Topos.Core)
@@ -56,7 +57,6 @@ TO-DO:
   * Binary relation closures: Reflexive, Transitive, Equivalence
   * Restrictions of binary relations
   * Compositions of binary relations
-* Functions
 * Infinite sets (Countably - Uncountably)
 * ...
 
