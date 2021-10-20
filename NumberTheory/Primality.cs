@@ -18,7 +18,18 @@ namespace Topos.NumberTheory
         public static bool IsPrime(this Integer p)
         {
             // Theorem: φ(p) = p - 1 if and only if p is a prime.
-            return NumberTheoreticFunctions.EulerTotient(p) == p - 1;
+            return p >= 0 && NumberTheoreticFunctions.EulerTotient(p) == p - 1;
+        }
+
+        /// <summary>
+        /// Checks whether the integer n is a composite.
+        /// </summary>
+        /// <param name="n">Input integer</param>
+        /// <returns>Whether the integer n is a composite</returns>
+        public static bool IsComposite(this Integer n)
+        {
+            // 0 and 1 are neither prime nor composite.
+            return n > 1 && !IsPrime(n);
         }
 
         /// <summary>

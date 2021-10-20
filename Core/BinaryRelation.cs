@@ -44,6 +44,10 @@ namespace Topos.Core
         {
             get => PreImageOf(Codomain);
         }
+        
+        // Checking the properties of a relation can be computationally comprehensive.
+        // Once computed, store the boolean variable.
+        private bool? isHomogeneous = null, isReflexive = null, isSymmetric = null, isTransitive = null, isAntiSymmetric = null;
 
         /// <summary>
         /// Defines an empty binary relation.
@@ -52,8 +56,8 @@ namespace Topos.Core
         /// <param name="b">Codomain set of relation</param>
         public BinaryRelation(Set a, Set b): base()
         {
-            Domain = a;
-            Codomain = b;
+            Domain = CopyFrom(a);
+            Codomain = CopyFrom(b);
         }
 
         /// <summary>
@@ -63,8 +67,8 @@ namespace Topos.Core
         /// <param name="b">Codomain set of relation</param>
         public BinaryRelation(Set a, Set b, BinaryRelationType type)
         {
-            Domain = a;
-            Codomain = b;
+            Domain = CopyFrom(a);
+            Codomain = CopyFrom(b);
 
             switch (type)
             {
@@ -85,7 +89,7 @@ namespace Topos.Core
         /// <param name="mappings">Mappings in terms of ordered pairs</param>
         public BinaryRelation(Set s, params (MathObject, MathObject)[] mappings)
         {
-            Domain = s;
+            Domain = Codomain = CopyFrom(s);
 
             foreach (var mapping in mappings)
             {
@@ -105,8 +109,8 @@ namespace Topos.Core
         /// <param name="mappings">Mappings in terms of ordered pairs</param>
         public BinaryRelation(Set a, Set b, params (MathObject, MathObject)[] mappings)
         {
-            Domain = a;
-            Codomain = b;
+            Domain = CopyFrom(a);
+            Codomain = CopyFrom(b);
 
             foreach (var mapping in mappings)
             {
@@ -115,6 +119,30 @@ namespace Topos.Core
                 if (pairIn.IsMemberOf(a) && pairOut.IsMemberOf(b)) 
                     elements.Add(new OrderedTuple(pairIn, pairOut));
             }
+        }
+
+        #endregion
+
+        #region collection_operations
+
+        /// <summary>
+        /// Adds an element to the set.
+        /// (Invalid for binary relations.)
+        /// </summary>
+        /// <param name="obj">The element to be added</param>
+        public override void Add(MathObject obj)
+        {
+        }
+
+        /// <summary>
+        /// Removes an element from the set.
+        /// (Invalid for binary relations.)
+        /// </summary>
+        /// <param name="obj">The element to be removed</param>
+        /// <returns>Whether the deletion is successful or not</returns>
+        public override bool Remove(MathObject obj)
+        {
+            return false;
         }
 
         #endregion
@@ -244,7 +272,9 @@ namespace Topos.Core
         /// <returns>Whether a binary relation is homogeneous or not</returns>
         public bool IsHomogeneous()
         {
-            return Domain.Equals(Codomain);
+            if (isHomogeneous == null)
+                return Domain.Equals(Codomain);
+            else return (bool)isHomogeneous;
         }
 
         /// <summary>
@@ -255,19 +285,24 @@ namespace Topos.Core
         /// <returns>Whether the homogeneous binary relation is reflexive or not</returns>
         public bool IsReflexive()
         {
-            // Ignore the rest for heterogeneous relation.
-            if (!IsHomogeneous()) return false;
+            if (isReflexive == null)
+            {
+                // Ignore the rest for heterogeneous relation.
+                if (!IsHomogeneous()) return false;
 
-            // Create a counter.
-            int count = 0;
+                // Check the members that hold reflexivity property.
+                foreach (MathObject x in Domain.ToList())
+                    if (!IsRelated(x, x)) 
+                    {
+                        isReflexive = false;
+                        return false;
+                    }
 
-            // Add the members that hold reflexivity property.
-            foreach (OrderedTuple t in elements)
-                if (t[0].Equals(t[1]))
-                    count++;
-
-            // If all members of the domain hold reflexivity property, return true.
-            return count == Domain.Cardinality;
+                // If all members of the domain hold reflexivity property, return true.
+                isReflexive = true;
+                return true;
+            }
+            else return (bool)isReflexive;
         }
 
         /// <summary>
@@ -278,15 +313,23 @@ namespace Topos.Core
         /// <returns>Whether the homogeneous binary relation is symmetric or not</returns>
         public bool IsSymmetric()
         {
-            // Ignore the rest for heterogeneous relation.
-            if (!IsHomogeneous()) return false;
+            if (isSymmetric == null)
+            {
+                // Ignore the rest for heterogeneous relation.
+                if (!IsHomogeneous()) return false;
 
-            // Check the members that hold symmetry property.
-            foreach (OrderedTuple t in elements)
-                if (!Contains(t.Inverse())) return false;
+                // Check the members that hold symmetry property.
+                foreach (OrderedTuple t in elements)
+                    if (!Contains(t.Inverse()))
+                    {
+                        isSymmetric = false;
+                        return false;
+                    }
 
-
-            return true;
+                isSymmetric = true;
+                return true;
+            }
+            else return (bool)isSymmetric;
         }
 
         /// <summary>
@@ -297,16 +340,23 @@ namespace Topos.Core
         /// <returns>Whether the homogeneous binary relation is antisymmetric or not</returns>
         public bool IsAntiSymmetric()
         {
-            // Ignore the rest for heterogeneous relation.
-            if (!IsHomogeneous()) return false;
+            if (isAntiSymmetric == null)
+            {
+                // Ignore the rest for heterogeneous relation.
+                if (!IsHomogeneous()) return false;
 
-            // Check the members that hold antisymmetry property.
-            foreach (OrderedTuple t in elements)
-                if (Contains(t.Inverse()) && !t.Inverse().Equals(t))
-                    return false;
+                // Check the members that hold antisymmetry property.
+                foreach (OrderedTuple t in elements)
+                    if (Contains(t.Inverse()) && !t.Inverse().Equals(t))
+                    {
+                        isAntiSymmetric = false;
+                        return false;
+                    }
 
-
-            return true;
+                isAntiSymmetric = true;
+                return true;
+            }
+            else return (bool)isAntiSymmetric;
         }
 
         /// <summary>
@@ -317,22 +367,29 @@ namespace Topos.Core
         /// <returns>Whether the homogeneous binary relation is transitive or not</returns>
         public bool IsTransitive()
         {
-            // Ignore the rest for heterogeneous relation.
-            if (!IsHomogeneous()) return false;
+            // TO-DO: Brute force method is computationally comprehensive. Find a better solution.
+            if (isTransitive == null)
+            {
+                // Ignore the rest for heterogeneous relation.
+                if (!IsHomogeneous()) return false;
 
-            // Check the members that hold transitivity property.
-            foreach (OrderedTuple t1 in elements)
-            { 
-                foreach (OrderedTuple t2 in elements)
+                // Check the members that hold transitivity property.
+                foreach (OrderedTuple t1 in elements)
                 {
-                    //t1 (1, 2)
-                    //t2 (2, 3)
-                    if (t1[1].Equals(t2[0]) && !IsRelated(t1[0], t2[1])) 
-                        return false;
+                    foreach (OrderedTuple t2 in elements)
+                    {
+                        if (t1[1] == t2[0] && !IsRelated(t1[0], t2[1]))
+                        {
+                            isTransitive = false;
+                            return false;
+                        }
+                    }
                 }
-            }
 
-            return true;
+                isTransitive = true;
+                return true;
+            }
+            else return (bool)isTransitive;
         }
 
         /// <summary>
@@ -361,8 +418,23 @@ namespace Topos.Core
             // Ignore the rest for non-equivalence relation.
             if (!IsEquivalenceRelation()) return s;
 
-            foreach(OrderedTuple t in elements)
-                s.Add(Map(t[0]));
+            // Theorem: Intersection of any different two equivalence classes is an empty set.
+            // Use this fact to eliminate redundant possibilities and increase performance.
+            Set domainCopy = CopyFrom(Domain);
+            
+            foreach (MathObject m in Domain.ToList())
+            { 
+                Set equivalenceClass = new Set();
+
+                // Get the equivalence class of m, if m is an element of domainCopy.
+                if (domainCopy.Contains(m)) { 
+                    equivalenceClass = Map(m);
+                    s.Add(equivalenceClass);
+                }
+
+                // Eliminate all members of the equivalence class from mapping.
+                domainCopy = Exclusion(domainCopy, equivalenceClass);
+            }
 
             return s;
         }

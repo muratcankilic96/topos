@@ -18,7 +18,7 @@ namespace Topos.Core
 
         // Cardinality is a dummy variable. It is used to get the set cardinality.
         /// <summary>
-        /// Gets the cardinality of the set
+        /// Gets the cardinality of the set.
         /// </summary>
         public uint Cardinality
         { 
@@ -26,7 +26,7 @@ namespace Topos.Core
         }
         
         /// <summary>
-        /// Creates an empty set
+        /// Creates an empty set.
         /// </summary>
         public Set()
         {
@@ -35,7 +35,7 @@ namespace Topos.Core
 
         /// <summary>
         /// Creates a set with given elements,
-        /// with duplicate protection
+        /// with duplicate protection.
         /// </summary>
         /// <param name="elements">List of elements</param>
         public Set(params MathObject[] elements)
@@ -48,27 +48,29 @@ namespace Topos.Core
         #region collection_operations
 
         /// <summary>
-        /// Adds an element to the set
+        /// Adds an element to the set.
         /// </summary>
         /// <param name="obj">The element to be added</param>
-        public void Add(MathObject obj)
+        public virtual void Add(MathObject obj)
         {
-            elements.Add(obj);
+            // To prevent Russell's Paradox, ZFC cannot allow a set that contains itself.
+            if(!obj.Equals(this))
+                elements.Add(obj);
         }
 
         /// <summary>
-        /// Removes an element from the set
+        /// Removes an element from the set.
         /// </summary>
         /// <param name="obj">The element to be removed</param>
         /// <returns>Whether the deletion is successful or not</returns>
-        public bool Remove(MathObject obj)
+        public virtual bool Remove(MathObject obj)
         {
             bool result = elements.Remove(obj);
             return result;
         }
 
         /// <summary>
-        /// Converts the set to a list
+        /// Converts the set to a list.
         /// </summary>
         /// <returns>A list of MathObject types</returns>
         public virtual List<MathObject> ToList()
@@ -77,7 +79,7 @@ namespace Topos.Core
         }
 
         /// <summary>
-        /// Converts the set to an array
+        /// Converts the set to an array.
         /// </summary>
         /// <returns>An array of MathObject types</returns>
         public virtual MathObject[] ToArray()
@@ -86,15 +88,13 @@ namespace Topos.Core
         }
 
         /// <summary>
-        /// Copies a set from another set
+        /// Copies a set from another set.
         /// </summary>
         /// <param name="set">The set to copy</param>
         public static Set CopyFrom(Set set)
         {
-            Set setcopy = new Set
-            {
-                elements = new HashSet<MathObject>(set.elements)
-            };
+            Set setcopy = new Set(set.elements.ToArray());
+
             return setcopy;
         }
 
@@ -103,7 +103,7 @@ namespace Topos.Core
         #region binary_operations
 
         /// <summary>
-        /// Applies exclusion operation over two sets from HashSet implementation
+        /// Applies exclusion operation over two sets from HashSet implementation.
         /// </summary>
         /// <param name="s1">First set</param>
         /// <param name="s2">Second set</param>
@@ -119,7 +119,7 @@ namespace Topos.Core
         }
 
         /// <summary>
-        /// Applies union operation over two sets from HashSet implementation
+        /// Applies union operation over two sets from HashSet implementation.
         /// </summary>
         /// <param name="s1">First set</param>
         /// <param name="s2">Second set</param>
@@ -135,7 +135,7 @@ namespace Topos.Core
         }
 
         /// <summary>
-        /// Applies generalized union operation over any number of sets from HashSet implementation
+        /// Applies generalized union operation over any number of sets from HashSet implementation.
         /// </summary>
         /// <param name="sets">A list of sets</param>
         /// <returns>The union set</returns>
@@ -157,7 +157,7 @@ namespace Topos.Core
         }
 
         /// <summary>
-        /// Applies intersection operation over two sets from HashSet implementation
+        /// Applies intersection operation over two sets from HashSet implementation.
         /// </summary>
         /// <param name="s1">First set</param>
         /// <param name="s2">Second set</param>
@@ -173,7 +173,7 @@ namespace Topos.Core
         }
 
         /// <summary>
-        /// Applies generalized intersection operation over any number of sets from HashSet implementation
+        /// Applies generalized intersection operation over any number of sets from HashSet implementation.
         /// </summary>
         /// /// <param name="sets">A list of sets</param>
         /// <returns>The intersection set</returns>
@@ -262,7 +262,7 @@ namespace Topos.Core
         }
 
         /// <summary>
-        /// Computes the generalized Cartesian product of given sets
+        /// Computes the generalized Cartesian product of given sets.
         /// </summary>
         /// <param name="sets">A list of sets</param> 
         /// <returns>The Cartesian product set</returns>
@@ -281,47 +281,47 @@ namespace Topos.Core
         #region logical_checks
 
         /// <summary>
-        /// Checks whether the set is empty or not
+        /// Checks whether the set is empty or not.
         /// </summary>
         /// <returns>Whether the set is empty or not</returns>
         public bool IsEmpty() => elements.Count == 0;
 
         /// <summary>
-        /// Checks whether the set is a singleton or not
+        /// Checks whether the set is a singleton or not.
         /// </summary>
         /// <returns>Whether the set is a singleton or not</returns>
         public bool IsSingleton() => elements.Count == 1;
 
         /// <summary>
-        /// Checks whether the set contains the given element or not
+        /// Checks whether the set contains the given element or not.
         /// </summary>
         /// <param name="element">The element to check its existence</param>
         /// <returns>Whether the elements exists</returns>
         public bool Contains(MathObject element) => elements.Contains(element);
 
         /// <summary>
-        /// Checks whether the set is a subset of the given set, including a trivial one
+        /// Checks whether the set is a subset of the given set, including a trivial one.
         /// </summary>
         /// <param name="superSet">The assumed superset of the given set</param>
         /// <returns>Whether the set is a subset of the given set or not</returns>
         public bool IsSubsetOf(Set superSet) => elements.IsSubsetOf(superSet.elements);
 
         /// <summary>
-        /// Checks whether the set is a proper subset of the given set
+        /// Checks whether the set is a proper subset of the given set.
         /// </summary>
         /// <param name="superSet">The assumed superset of the given set</param>
         /// <returns>Whether the set is a subset of the given set or not</returns>
         public bool IsProperSubsetOf(Set superSet) => elements.IsProperSubsetOf(superSet.elements);
 
         /// <summary>
-        /// Checks whether the set is a superset of the given set, including a trivial one
+        /// Checks whether the set is a superset of the given set, including a trivial one.
         /// </summary>
         /// <param name="subset">The assumed subset of the given set</param>
         /// <returns>Whether the set is a superset of the given set or not</returns>
         public bool IsSupersetOf(Set subset) => elements.IsSupersetOf(subset.elements);
 
         /// <summary>
-        /// Checks whether the set is a proper superset of the given set
+        /// Checks whether the set is a proper superset of the given set.
         /// </summary>
         /// <param name="subset">The assumed subset of the given set</param>
         /// <returns>Whether the set is a superset of the given set or not</returns>

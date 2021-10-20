@@ -4,6 +4,8 @@ Topos is a library for implementations of mathematical concepts for .NET Standar
 A Set is an unordered container of mathematical objects, including nested definitions such as Set of Sets. 
 My implementation takes .NET HashSet<T> as basis. However, Sets are not generic types, and can only hold objects of MathObject class.
 
+ZFC ensures that there are no atomic elements, however, to increase comprehension, I included atomic elements where Element is its base class.
+
 Currently supported classes are:
 
 Topos.Core
@@ -32,10 +34,10 @@ Topos.Core.Exceptions
     * ComplexDomainException
 
 Topos.NumberTheory
-* Division *(static)*
 * MathObject *(Topos.Core)*
   * Congruence<T> *(abstract)*
     * IntegerCongruence
+* Division *(static)*
 * NumberTheoreticFunctions *(static)*
 * Primality *(static)*
 
@@ -61,3 +63,4 @@ TO-DO:
 ISSUES:
 * Complex number operations between ordered tuples are not supported.
 * Complex number operations over exponential representations are not supported.
+* Binary relation transitivity decision problem is computationally comprehensive.
