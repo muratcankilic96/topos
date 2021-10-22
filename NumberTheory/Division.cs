@@ -57,18 +57,18 @@ namespace Topos.NumberTheory
             // It is proven that gcd(a, b) = gcd(-a, b) = gcd(a, -b) = gcd(-a, -b),
             // however % operator is not modulus and works different
             // in negative numbers.
-            int a_int = Math.Abs(a);
-            int b_int = Math.Abs(b);
+            int a_int = Abs(a);
+            int b_int = Abs(b);
 
             // If at least one of the integers is 0, return the other integer as result
             if (a_int == 0 || b_int == 0)
-                return Math.Max(a_int, b_int);
+                return Max(a_int, b_int);
 
             // Select smaller integer as modulus
-            int modulus = Math.Min(a_int, b_int);
+            int modulus = Min(a_int, b_int);
 
             // Select larger integer as dividend
-            int dividend = Math.Max(a_int, b_int);
+            int dividend = Max(a_int, b_int);
 
             // Start Euclidean algorithm
             do

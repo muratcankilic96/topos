@@ -15,9 +15,10 @@ Topos.Core
     * Number *(abstract)*
       * Real
         * Integer
+		  * Natural
         * Rational
       * Complex
-	* Exponential
+	  * Exponential
   * Set
     * OrderedTuple
 	* BinaryRelation
@@ -44,9 +45,7 @@ Topos.NumberTheory
 
 TO-DO:
 
-* Divisor Function - Degree 1
-* Divisor Function - General Case
-* Möbius Mu Function
+* Exponentials will be represented as numbers, including complex number operations (will not support invariants)
 * Modular arithmetic over integers
   * Order
   * Primitive root
@@ -63,4 +62,3 @@ TO-DO:
 ISSUES:
 * Complex number operations between ordered tuples are not supported.
 * Complex number operations over exponential representations are not supported.
-* Binary relation transitivity decision problem is computationally comprehensive.

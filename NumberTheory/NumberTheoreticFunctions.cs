@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Topos.Core;
 
 namespace Topos.NumberTheory
@@ -15,6 +14,7 @@ namespace Topos.NumberTheory
         /// <summary>
         /// Computes how many positive relatively prime integers are there, up to the given integer.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Euler totient function can only take nonnegative integers.</exception>
         /// <param name="n">A nonnegative integer</param>
         /// <returns>Number of relatively prime integers 0 \< x \< n</returns>
         public static Integer EulerTotient(this Integer n)
@@ -56,6 +56,7 @@ namespace Topos.NumberTheory
         /// Returns the number of divisors of n.
         /// Degree 0: σ₀(n) = τ(n)
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Divisor function can only take positive integers.</exception>
         /// <param name="n">A positive integer</param>
         /// <returns>Number of divisors of n</returns>
         public static Integer DivisorTau(this Integer n)
@@ -77,35 +78,91 @@ namespace Topos.NumberTheory
                 primeExponents.Add(exp.Index as Integer);
             }
 
-            int sum = 1;
+            Integer product = 1;
 
             foreach (Integer i in primeExponents) {
-                sum *= (i + 1);
+                product *= (i + 1);
             }
 
-            return sum;
+            return product;
         }
 
-        #region to_do
         /// <summary>
         /// Computes a special case of divisor function. 
         /// Returns the sum of divisors of n.
-        /// Degree 1: σ₁(n) = τ(n)
+        /// Degree 1: σ₁(n) = σ(n)
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Divisor function can only take positive integers.</exception>
         /// <param name="n">A positive integer</param>
         /// <returns>Sum of divisors of n</returns>
         public static Integer DivisorSigma(this Integer n)
         {
-            // TO-DO
-            return null;
+            // Call generalized divisor function of degree 1
+            return (Integer) DivisorFunction(n, 1);
         }
 
-        public static Integer MobiusMu(this Integer n)
+        /// <summary>
+        /// Computes the divisor function. 
+        /// Returns the sum of xth powers of divisors of n.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Divisor function can only take positive integers.</exception>
+        /// <param name="n">A positive integer</param>
+        /// <param name="x">Degree of the divisor function</param>
+        /// <returns>Sum of xth powers of divisors of n</returns>
+        public static Real DivisorFunction(this Integer n, Real x)
         {
-            // TO-DO
-            return null;
+            // Nonpositive domain is undefined.
+            if (n <= 0)
+                throw new ArgumentOutOfRangeException("Divisor function must take positive integers.");
+
+            // Call divisor Tau special case if x = 0 (General formula encounters division by zero)
+            if (x == 0) return DivisorTau(n);
+
+            // Base case
+            if (n == 1) return 1;
+            List<MathObject> primeFactors = n.Factorize().ToList();
+
+            // Extract primes.
+
+            Real product = 1;
+
+            foreach (Exponential exp in primeFactors)
+            {
+                Console.WriteLine("For: " + exp);
+                exp.Index = ((Real)exp.Index + 1) * x;
+                Real expBase = Math.Pow((Real)exp.Base, x);
+                Console.WriteLine("Check: " + exp.Index + " " + expBase + " " + exp.Compute());
+                product *= (exp.Compute() - 1) / (expBase - 1);
+                Console.WriteLine("Result: " + product);
+            }
+
+            return product;
         }
 
-        #endregion
+        /// <summary>
+        /// Möbius μ function is a function that returns either -1, 0, or 1 depending on
+        /// the integer. It is used for Möbius inversion formula.
+        /// </summary>
+        /// <param name="n">A positive integer</param>
+        /// <returns></returns>
+        public static Integer MoebiusMu(this Integer n)
+        {
+            // Nonpositive domain is undefined.
+            if (n <= 0)
+                throw new ArgumentOutOfRangeException("Möbius μ function must take positive integers.");
+
+            // Base case
+            if(n == 1) return 1;
+
+            // Factorize n
+            Set primeFactorization = n.Factorize();
+
+            // n is not square-free
+            if (!primeFactorization.Equals(n.FactorizeUnique())) return 0;
+
+            // n is square-free
+            // Even number of primes return 1, odd number of primes return -1
+            else return (int) -(primeFactorization.Cardinality % 2 * 2 - 1);
+        }
     }
 }

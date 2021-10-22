@@ -109,7 +109,7 @@ namespace Topos.Core
             try
             {
                 // Real expressions
-                return a.Compute() == b.Compute();
+                return a.Compute().Equals(b.Compute());
             } 
             catch
             {
@@ -128,13 +128,24 @@ namespace Topos.Core
         {
             if (obj is Exponential)
                 return this == (Exponential)obj;
-            else return false;
+            else if (Base is Real && Index is Real && obj is Number)
+                return Compute() == (Real)obj;
+            return false;
 
         }
 
         public override int GetHashCode()
         {
-            return (Base, Index).GetHashCode();
+            try
+            {
+                // Real expressions
+                return Compute().GetHashCode();
+            }
+            catch
+            {
+                // Complex and invariant expressions
+                return (Base, Index).GetHashCode();
+            }
         }
         #endregion
     }

@@ -44,6 +44,7 @@ namespace Topos.Core
         }
 
         public static implicit operator Integer(int i) => new Integer(i);
+        public static implicit operator Integer(uint i) => new Integer((int) i);
         public static implicit operator Integer(Complex c) => new Integer((int) c.Real.Value);
         public static implicit operator int(Integer i) => (int) i.Value;
         public static implicit operator double(Integer i) => (double) i.Value;

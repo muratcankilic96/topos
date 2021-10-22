@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,7 +11,7 @@ namespace Topos.Core
     /// in an instance of the Set object, it is possible to add or remove
     /// elements after definition.
     /// </summary>
-    public class Set : MathObject
+    public class Set : MathObject, IEnumerable<MathObject>
     {
         #region core
         protected HashSet<MathObject> elements;
@@ -405,6 +406,19 @@ namespace Topos.Core
                 hashCode ^= m.GetHashCode();
             return hashCode;
         }
+        #endregion
+
+        #region iteration
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return elements.ToList().GetEnumerator();
+        }
+
+        public IEnumerator<MathObject> GetEnumerator()
+        {
+            return ((IEnumerable<MathObject>)elements.ToList()).GetEnumerator();
+        }
+
         #endregion
     }
 }

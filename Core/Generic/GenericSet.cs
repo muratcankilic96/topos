@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Topos.Core.Generic
 {
@@ -10,7 +10,7 @@ namespace Topos.Core.Generic
     /// of MathObject, which is useful on type protection in special types of
     /// applications.
     /// </summary>
-    public class GenericSet<T> : MathObject where T: MathObject
+    public class GenericSet<T> : MathObject, IEnumerable<T> where T: MathObject
     {
         #region core
         // Encapsulation over inheritance. Increases code count but solves casting issues.
@@ -297,7 +297,19 @@ namespace Topos.Core.Generic
         }
 
         public override int GetHashCode() => set.GetHashCode();
-        
+
+        #endregion
+
+        #region iteration
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return set.ToList().GetEnumerator();
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return (IEnumerator<T>)set.ToList().Cast<T>().GetEnumerator();
+        }
         #endregion
     }
 }

@@ -296,7 +296,7 @@ namespace Topos.Core
                 if (!IsHomogeneous()) return false;
 
                 // Check the members that hold reflexivity property.
-                foreach (MathObject x in Domain.ToList())
+                foreach (MathObject x in Domain)
                     if (!IsRelated(x, x)) 
                     {
                         isReflexive = false;
@@ -427,7 +427,7 @@ namespace Topos.Core
             // Use this fact to eliminate redundant possibilities and increase performance.
             Set domainCopy = CopyFrom(Domain);
             
-            foreach (MathObject m in Domain.ToList())
+            foreach (MathObject m in Domain)
             { 
                 Set equivalenceClass = new Set();
 
@@ -476,10 +476,10 @@ namespace Topos.Core
         {
             int hashCode = 0;
 
-            foreach (MathObject m in Domain.ToList())
+            foreach (MathObject m in Domain)
                 hashCode ^= m.GetHashCode();
 
-            foreach (MathObject m in Codomain.ToList())
+            foreach (MathObject m in Codomain)
                 hashCode ^= m.GetHashCode();
 
             hashCode ^= base.GetHashCode();
