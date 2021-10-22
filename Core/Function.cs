@@ -97,6 +97,30 @@ namespace Topos.Core
 
         #endregion
 
+        #region composition_operation
+
+        /// <summary>
+        /// Computes the composition of two functions f and g.
+        /// Composition of f and g is the set of all f(g(x)).
+        /// </summary>
+        /// <param name="f">First function</param>
+        /// <param name="g">Second function</param>
+        /// <returns>The function composition f o g = f(g(x))</returns>
+        public static Function Composition(Function f, Function g)
+        {
+            List<(MathObject, MathObject)> mappings = new List<(MathObject, MathObject)>();
+            // S o R
+            foreach (MathObject m in g.Domain)
+            {
+                MathObject mapping = f.Map(g.Map(m));
+                mappings.Add((m, mapping));
+            }
+
+            return new Function(g.Domain, f.Codomain, mappings.ToArray());
+        }
+
+        #endregion
+
         #region logical_checks
         /// <summary>
         /// Checks whether the function f is injective or not,
@@ -166,6 +190,19 @@ namespace Topos.Core
             return $"[Function]\n[Domain]: {Domain}" +
                 $"\n[Codomain]: {Codomain}\n" +
                 $"[Mappings]: {new Set(elements.ToArray())}";
+        }
+
+        /// <summary>
+        /// Computes the composition of two functions f and g.
+        /// Composition of f and g is the set of all f(g(x)).
+        /// </summary>
+        /// <param name="f">First function</param>
+        /// <param name="g">Second function</param>
+        /// <returns>The function composition f o g = f(g(x))</returns>
+        public static Function operator *(Function f, Function g)
+        {
+            // Reversed
+            return Composition(f, g);
         }
 
         #endregion

@@ -53,9 +53,7 @@ TO-DO:
   * Quadratic residue
   * Legendre and Jacobi symbols
 * Binary relations
-  * Binary relation closures: Reflexive, Transitive, Equivalence
   * Restrictions of binary relations
-  * Compositions of binary relations
 * Infinite sets (Countably - Uncountably)
 * ...
 

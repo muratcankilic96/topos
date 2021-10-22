@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Topos.Core
 {
@@ -52,7 +53,10 @@ namespace Topos.Core
         /// <summary>
         /// Defines an empty binary relation.
         /// </summary>
-        public BinaryRelation(): base() { }
+        public BinaryRelation(): base() 
+        { 
+            Domain = Codomain = new Set(); 
+        }
 
         /// <summary>
         /// Defines a null binary relation.
@@ -126,6 +130,25 @@ namespace Topos.Core
             }
         }
 
+        /// <summary>
+        /// Creates a homogeneous diagonal binary relation.
+        /// Let R be a homogeneous relation over set A,
+        /// then for all a ∈ A, aRa holds.
+        /// </summary>
+        /// <param name="a">Domain and codomain sets of relation</param>
+        /// <returns></returns>
+        public static BinaryRelation Diagonal(Set a)
+        {
+            (MathObject, MathObject)[] mappings = new (MathObject, MathObject)[a.Cardinality];
+
+            int i = 0;
+
+            foreach (MathObject m in a)
+                mappings[i++] = (m, m);
+
+            return new BinaryRelation(a, mappings);
+        }
+
         #endregion
 
         #region collection_operations
@@ -148,6 +171,84 @@ namespace Topos.Core
         public override bool Remove(MathObject obj)
         {
             return false;
+        }
+
+        #endregion
+
+        #region binary_operations
+
+        /// <summary>
+        /// Applies union operation over two binary relations.
+        /// </summary>
+        /// <param name="s1">First binary relation</param>
+        /// <param name="s2">Second binary relation</param>
+        /// <returns>The union binary relation</returns>
+        public static BinaryRelation Union(BinaryRelation r, BinaryRelation s)
+        {
+            // Construct copies.
+            Set domain = Union(r.Domain, s.Domain);
+            Set codomain = Union(r.Codomain, s.Codomain);
+
+            BinaryRelation rus = new BinaryRelation(domain, codomain);
+            rus.elements = new HashSet<MathObject>(Union(new Set(r.ToArray()), new Set(s.ToArray())).ToList());
+            return rus;
+        }
+
+        /// <summary>
+        /// Applies generalized union operation over any number of binary relations.
+        /// </summary>
+        /// <param name="sets">A list of binary relations</param>
+        /// <returns>The union binary relation</returns>
+        public static BinaryRelation Union(params BinaryRelation[] rels)
+        {
+            // Throw exception for invalid number of inputs
+            if (rels.Length < 2)
+                throw new ArgumentException();
+
+            // Construct original copy.
+            BinaryRelation originRels = new BinaryRelation(rels[0].Domain, rels[0].Codomain);
+            originRels.elements = new HashSet<MathObject>(rels[0].ToList());
+
+            for (int i = 1; i < rels.Length; i++)
+                originRels = Union(originRels, rels[i]);
+            return originRels;
+        }
+
+        /// <summary>
+        /// Applies intersection operation over two binary relations.
+        /// </summary>
+        /// <param name="s1">First binary relation</param>
+        /// <param name="s2">Second binary relation</param>
+        /// <returns>The intersection binary relation</returns>
+        public static BinaryRelation Intersection(BinaryRelation r, BinaryRelation s)
+        {
+            // Construct copies.
+            Set domain = Intersection(r.Domain, s.Domain);
+            Set codomain = Intersection(r.Codomain, s.Codomain);
+
+            BinaryRelation rus = new BinaryRelation(domain, codomain);
+            rus.elements = new HashSet<MathObject>(Intersection(new Set(r.ToArray()), new Set(s.ToArray())).ToList());
+            return rus;
+        }
+
+        /// <summary>
+        /// Applies generalized intersection operation over any number of binary relations.
+        /// </summary>
+        /// /// <param name="sets">A list of binary relations</param>
+        /// <returns>The intersection binary relation</returns>
+        public static BinaryRelation Intersection(params BinaryRelation[] rels)
+        {
+            // Throw exception for invalid number of inputs
+            if (rels.Length < 2)
+                throw new ArgumentException();
+
+            // Construct original copy.
+            BinaryRelation originRels = new BinaryRelation(rels[0].Domain, rels[0].Codomain);
+            originRels.elements = new HashSet<MathObject>(rels[0].ToList());
+
+            for (int i = 1; i < rels.Length; i++)
+                originRels = Intersection(originRels, rels[i]);
+            return originRels;
         }
 
         #endregion
@@ -205,7 +306,7 @@ namespace Topos.Core
         public virtual Set ImageOf(Set s)
         {
             Set t = new Set();
-            foreach (var element in s.ToList())
+            foreach (var element in s)
                 t = Union(t, Map(element));
             return t;
         }
@@ -383,7 +484,7 @@ namespace Topos.Core
                 {
                     foreach (OrderedTuple t2 in elements)
                     {
-                        if (t1[1] == t2[0] && !IsRelated(t1[0], t2[1]))
+                        if (t1[1].Equals(t2[0]) && !IsRelated(t1[0], t2[1]))
                         {
                             isTransitive = false;
                             return false;
@@ -444,6 +545,94 @@ namespace Topos.Core
             return s;
         }
         #endregion
+            #endregion
+
+        #region closure_operations
+
+        /// <summary>l
+        /// Generates the reflexive closure of a homogeneous binary relation.
+        /// Returns a reference to itself if the binary relation is heterogeneous.
+        /// </summary>
+        /// <returns>The smallest reflexive relation containing R</returns>
+        public BinaryRelation ReflexiveClosure()
+        {
+            if (!IsHomogeneous())
+                return this;
+            return Union(this, Diagonal(Domain));
+        }
+
+        /// <summary>
+        /// Generates the symmetric closure of a homogeneous binary relation.
+        /// Returns a reference to itself if the binary relation is heterogeneous.
+        /// </summary>
+        /// <returns>The smallest symmetric relation containing R</returns>
+        public BinaryRelation SymmetricClosure()
+        {
+            if (!IsHomogeneous())
+                return this;
+            return Union(this, Converse());
+        }
+
+        /// <summary>
+        /// Generates the transitive closure of a homogeneous binary relation.
+        /// Returns a reference to itself if the binary relation is heterogeneous.
+        /// </summary>
+        /// <returns>The smallest transitive relation containing R</returns>
+        public BinaryRelation TransitiveClosure()
+        {
+            if (!IsHomogeneous())
+                return this;
+            BinaryRelation r = Union(this, this * this);
+            while (!(r = Union(r, r * this)).Equals(r)) { }
+            return r;
+        }
+
+        /// <summary>
+        /// Generates the equivalence closure of a homogeneous binary relation.
+        /// Returns a reference to itself if the binary relation is heterogeneous.
+        /// </summary>
+        /// <returns>The equivalence closure of R</returns>
+        public BinaryRelation EquivalenceClosure()
+        {
+            if (!IsHomogeneous())
+                return this;
+            BinaryRelation r = ReflexiveClosure();
+            r = r.SymmetricClosure();
+            r = r.TransitiveClosure();
+            return r;
+        }
+
+        #endregion
+
+        #region composition_operation
+
+        /// <summary>
+        /// Computes the composition of two relations R and S.
+        /// Composition of R and S is the set of all (a, c) where aSb and bRc.
+        /// </summary>
+        /// <param name="s">First relation</param>
+        /// <param name="r">Second relation</param>
+        /// <returns>The binary relation composition S o R</returns>
+        public static BinaryRelation Composition(BinaryRelation s, BinaryRelation r)
+        {
+            Set cartesian = new Set();
+            // S o R
+            foreach(MathObject m in r.Domain)
+            {
+                Set mapping = s.ImageOf(r.ImageOf(new Set(m)));
+                cartesian = Union(cartesian, CartesianProduct(new Set(m), mapping));
+            }
+            // Convert OrderedTuple objects to C# pairs.
+
+            (MathObject, MathObject)[] pairs = new (MathObject, MathObject)[cartesian.Cardinality];
+
+            int i = 0;
+            foreach(OrderedTuple t in cartesian)
+                pairs[i++] = (t[0], t[1]);
+
+            return new BinaryRelation(r.Domain, s.Codomain, pairs);
+        }
+
         #endregion
 
         #region override
@@ -462,6 +651,18 @@ namespace Topos.Core
         public static bool operator !=(BinaryRelation a, BinaryRelation b)
         {
             return !a.Equals(b);
+        }
+
+        /// <summary>
+        /// Computes the composition of two relations R and S.
+        /// Composition of R and S is the set of all (a, c) where aSb and bRc.
+        /// </summary>
+        /// <param name="s">First relation</param>
+        /// <param name="r">Second relation</param>
+        /// <returns>The binary relation composition S o R</returns>
+        public static BinaryRelation operator *(BinaryRelation s, BinaryRelation r)
+        {
+            return Composition(s, r);
         }
 
         public override bool Equals(object obj)
