@@ -133,3 +133,4 @@ They are equal sets.
 This is just one single example, and it depends upon your creativity on what kind of structures you can build. I also appreciate your contributions, of course!
 
 I have created this HTML documentation using Doxygen for applications of specific mathematical objects.
+If you want to feel scientific I also have PDF.
