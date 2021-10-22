@@ -18,14 +18,14 @@ Topos.Core
 		  * Natural
         * Rational
       * Complex
-	  * Exponential
+	* Exponential
   * Set
     * OrderedTuple
 	* BinaryRelation
 	  * Function
   
 Topos.Core.Generic
-* MathObject *(abstract)* (from Topos.Core)
+* MathObject (from Topos.Core)
   * GenericSet<T>
 	
 Topos.Core.Exceptions
@@ -36,7 +36,7 @@ Topos.Core.Exceptions
     * ComplexDomainException
 
 Topos.NumberTheory
-* MathObject *(Topos.Core)*
+* MathObject *(from Topos.Core)*
   * Congruence<T> *(abstract)*
     * IntegerCongruence
 * Division *(static)*

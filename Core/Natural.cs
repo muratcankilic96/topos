@@ -42,6 +42,7 @@ namespace Topos.Core
         }
 
         public static implicit operator Natural(uint i) => new Natural(i);
+        public static implicit operator Natural(int i) => new Natural((uint) Abs(i));
         public static implicit operator Natural(Complex c) => new Natural((uint) c.Real.Value);
         public static implicit operator uint(Natural i) => (uint) i.Value;
         public static implicit operator double(Natural i) => (double) i.Value;
