@@ -47,13 +47,10 @@ TO-DO:
 
 * Exponentials will be represented as numbers, including complex number operations (will not support invariants)
 * Modular arithmetic over integers
-  * Order
   * Primitive root
   * Index
   * Quadratic residue
   * Legendre and Jacobi symbols
-* Binary relations
-  * Restrictions of binary relations
 * Infinite sets (Countably - Uncountably)
 * ...
 

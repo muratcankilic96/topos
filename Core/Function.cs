@@ -50,30 +50,107 @@ namespace Topos.Core
         }
 
         /// <summary>
+        /// Defines a single-variable function f: A -> B with given mappings.
+        /// If the given mapping is invalid, it is ignored.
+        /// </summary>
+        /// <param name="a">Domain set of function</param>
+        /// <param name="b">Codomain set of function</param>
+        /// <param name="mappings">Mappings in terms of ordered pairs</param>
+        public Function(Set a, Set b, params OrderedTuple[] mappings)
+        {
+            Set redundantObjects = new Set();
+            foreach (var mapping in mappings)
+            {
+                if(mapping.Length == 2) { 
+                    MathObject pairIn = mapping[0];
+                    MathObject pairOut = mapping[1];
+                    // By definition: If aRx and aRy, then x = y.
+                    // Hence, ignore later additions completely.
+                    if (!redundantObjects.Contains(pairIn) && pairIn.IsMemberOf(a) && pairOut.IsMemberOf(b))
+                    {
+                        elements.Add(new OrderedTuple(pairIn, pairOut));
+                        redundantObjects.Add(pairIn);
+                    }
+                }
+            }
+
+            // By definition: Domain is equal to the pre-image of B.
+            Domain = PreImageOf(b);
+            Codomain = b;
+        }
+
+        /// <summary>
         /// Defines a single-variable function f: S -> S with given mappings.
         /// If the given mapping is invalid, it is ignored.
         /// </summary>
         /// <param name="s">Domain and codomain sets of function</param>
         /// <param name="mappings">Mappings in terms of ordered pairs</param>
-        public Function(Set s, params (MathObject, MathObject)[] mappings)
+        public Function(Set s, params (MathObject, MathObject)[] mappings): this(s, s, mappings)
         {
-            Set redundantObjects = new Set();
-            foreach (var mapping in mappings)
-            {
-                MathObject pairIn = mapping.Item1;
-                MathObject pairOut = mapping.Item2;
-                // By definition: If aRx and aRy, then x = y.
-                // Hence, ignore later additions completely.
-                if (!redundantObjects.Contains(pairIn) && pairIn.IsMemberOf(s) && pairOut.IsMemberOf(s))
-                {
-                    elements.Add(new OrderedTuple(pairIn, pairOut));
-                    redundantObjects.Add(pairIn);
-                }
-            }
 
-            // By definition: Domain is equal to the pre-image of B.
-            Domain = PreImageOf(s);
-            Codomain = s;
+        }
+
+        /// <summary>
+        /// Defines a single-variable function f: S -> S with given mappings.
+        /// If the given mapping is invalid, it is ignored.
+        /// </summary>
+        /// <param name="s">Domain and codomain sets of function</param>
+        /// <param name="mappings">Mappings in terms of ordered pairs</param>
+        public Function(Set s, params OrderedTuple[] mappings) : this(s, s, mappings)
+        {
+
+        }
+
+        #endregion
+
+        #region diagonal
+
+        /// <summary>
+        /// Creates an identity function.
+        /// Let I: A -> A be a function,
+        /// then I(x) = x.
+        /// </summary>
+        /// <param name="a">Domain and codomain sets of function</param>
+        /// <returns>The identity function</returns>
+        public static Function Identity(Set a)
+        {
+            (MathObject, MathObject)[] mappings = new (MathObject, MathObject)[a.Cardinality];
+
+            int i = 0;
+
+            foreach (MathObject m in a)
+                mappings[i++] = (m, m);
+
+            return new Function(a, mappings);
+        }
+
+        #endregion diagonal
+
+        #region restriction
+
+        /// <summary>
+        /// Restricts a function f: A -> B under smaller sets S ⊆ A
+        /// and T ⊆ B. If subset relations do not hold, returns an empty function.
+        /// </summary>
+        /// <param name="s">Restricted domain of the function</param>
+        /// <param name="t">Restricted codomain of the function</param>
+        /// <returns>The restricted function</returns>
+        public new Function Restriction(Set s, Set t)
+        {
+            if (s.IsSubsetOf(Domain) && t.IsSubsetOf(Codomain))
+                return new Function(s, t, elements.Cast<OrderedTuple>().ToArray());
+            else return new Function();
+        }
+
+        /// <summary>
+        /// Restricts a function f: A -> A under a smaller set S ⊆ A.
+        /// If the subset relation do not hold, returns an empty function.
+        /// </summary>
+        /// <param name="s">Restricted domain and codomain of the function</param>
+        /// <returns>The restricted function</returns>
+        public new Function Restriction(Set s)
+        {
+            return Restriction(s, s);
         }
 
         #endregion

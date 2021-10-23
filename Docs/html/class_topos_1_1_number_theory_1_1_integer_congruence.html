@@ -98,6 +98,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a74058be2f48fea552f07873f8d74d92c"><td class="memItemLeft" align="right" valign="top">override <a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a74058be2f48fea552f07873f8d74d92c">Mod</a> (<a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a> a)</td></tr>
 <tr class="memdesc:a74058be2f48fea552f07873f8d74d92c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies modulo operation on the given integer.  <a href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a74058be2f48fea552f07873f8d74d92c">More...</a><br /></td></tr>
 <tr class="separator:a74058be2f48fea552f07873f8d74d92c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52ed5ab4f8e3d9fca1f18c33e687998d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a52ed5ab4f8e3d9fca1f18c33e687998d">Mod</a> (<a class="el" href="class_topos_1_1_core_1_1_exponential.html">Exponential</a> exp)</td></tr>
+<tr class="memdesc:a52ed5ab4f8e3d9fca1f18c33e687998d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies modulo operation on the given exponential. Both the base and the index of the exponential must be Integer types. Uses congruence properties for faster computation.  <a href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a52ed5ab4f8e3d9fca1f18c33e687998d">More...</a><br /></td></tr>
+<tr class="separator:a52ed5ab4f8e3d9fca1f18c33e687998d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91dd72289583a8c8f641cfde64bf72ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a91dd72289583a8c8f641cfde64bf72ee">Order</a> (<a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a> a)</td></tr>
+<tr class="memdesc:a91dd72289583a8c8f641cfde64bf72ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the order of a mod n.  <a href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a91dd72289583a8c8f641cfde64bf72ee">More...</a><br /></td></tr>
+<tr class="separator:a91dd72289583a8c8f641cfde64bf72ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_topos_1_1_number_theory_1_1_congruence"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_topos_1_1_number_theory_1_1_congruence')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_topos_1_1_number_theory_1_1_congruence.html">Topos.NumberTheory.Congruence&lt; Integer &gt;</a></td></tr>
 <tr class="memitem:ad394ebd06750d3abc61225c6233a9d4d inherit pub_methods_class_topos_1_1_number_theory_1_1_congruence"><td class="memItemLeft" align="right" valign="top">abstract bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_topos_1_1_number_theory_1_1_congruence.html#ad394ebd06750d3abc61225c6233a9d4d">IsCongruent</a> (T a, T b)</td></tr>
 <tr class="separator:ad394ebd06750d3abc61225c6233a9d4d inherit pub_methods_class_topos_1_1_number_theory_1_1_congruence"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,8 +187,35 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a52ed5ab4f8e3d9fca1f18c33e687998d" name="a52ed5ab4f8e3d9fca1f18c33e687998d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52ed5ab4f8e3d9fca1f18c33e687998d">&#9670;&nbsp;</a></span>Mod() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a> Topos.NumberTheory.IntegerCongruence.Mod </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_topos_1_1_core_1_1_exponential.html">Exponential</a>&#160;</td>
+          <td class="paramname"><em>exp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applies modulo operation on the given exponential. Both the base and the index of the exponential must be Integer types. Uses congruence properties for faster computation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>Exponential to be operated</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Result of the modulo operation</dd></dl>
+
+</div>
+</div>
 <a id="a74058be2f48fea552f07873f8d74d92c" name="a74058be2f48fea552f07873f8d74d92c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74058be2f48fea552f07873f8d74d92c">&#9670;&nbsp;</a></span>Mod()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a74058be2f48fea552f07873f8d74d92c">&#9670;&nbsp;</a></span>Mod() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -205,6 +238,33 @@ Properties</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Result of the modulo operation</dd></dl>
+
+</div>
+</div>
+<a id="a91dd72289583a8c8f641cfde64bf72ee" name="a91dd72289583a8c8f641cfde64bf72ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91dd72289583a8c8f641cfde64bf72ee">&#9670;&nbsp;</a></span>Order()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a> Topos.NumberTheory.IntegerCongruence.Order </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a>&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the order of a mod n. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
 </div>
@@ -234,7 +294,7 @@ Properties</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>NumberTheory/<a class="el" href="_integer_congruence_8cs.html">IntegerCongruence.cs</a></li>
+<li>Topos/Topos/NumberTheory/<a class="el" href="_integer_congruence_8cs.html">IntegerCongruence.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

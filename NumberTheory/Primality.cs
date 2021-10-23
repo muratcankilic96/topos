@@ -42,14 +42,14 @@ namespace Topos.NumberTheory
             // Negative domain is undefined.
             if (n < 0)
                 throw new ArgumentOutOfRangeException("Prime factorization must take nonnegative integers.");
-            // Some base cases are handled.
+            // Some trivial cases are handled.
             else if (n == 1 || n == 0) return new Set();
             else if (n == 2) return new Set(2);
 
-            // << TO-DO: Memory management for very large integers. >>
+            // << TO-DO: Performance tweaqk for very large integers. Maybe Sieve of Atkin? >>
 
             // Initialize the list of numbers.
-            List<Integer> sieve = new List<Integer>();
+            Set sieve = new Set();
 
             // Assign the numbers to the list in order. First item is 2.
             // Multiples of 2 are redundant because the only even prime is 2.
@@ -62,8 +62,8 @@ namespace Topos.NumberTheory
                 for(int j = 3; j <= (n / i); j += 2)
                     sieve.Remove(i * j);
 
-            // Return the pruned sieve, which only holds primes
-            return new Set(sieve.ToArray());
+            // Return the pruned sieve, which only holds primes*/
+            return sieve;
         }
 
         /// <summary>

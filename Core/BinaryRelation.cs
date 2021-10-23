@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace Topos.Core
@@ -96,18 +97,15 @@ namespace Topos.Core
         /// </summary>
         /// <param name="s">Domain and codomain sets of relation</param>
         /// <param name="mappings">Mappings in terms of ordered pairs</param>
-        public BinaryRelation(Set s, params (MathObject, MathObject)[] mappings)
-        {
-            Domain = Codomain = CopyFrom(s);
+        public BinaryRelation(Set s, params (MathObject, MathObject)[] mappings) : this(s, s, mappings) { }
 
-            foreach (var mapping in mappings)
-            {
-                MathObject pairIn = mapping.Item1;
-                MathObject pairOut = mapping.Item2;
-                if (pairIn.IsMemberOf(s) && pairOut.IsMemberOf(s))
-                    elements.Add(new OrderedTuple(pairIn, pairOut));
-            }
-        }
+        /// <summary>
+        /// Defines a homogeneous binary relation with given mappings from Set S to S.
+        /// If the given mapping is invalid, it is ignored.
+        /// </summary>
+        /// <param name="s">Domain and codomain sets of relation</param>
+        /// <param name="mappings">Mappings in terms of ordered pairs</param>
+        public BinaryRelation(Set s, params OrderedTuple[] mappings) : this(s, s, mappings) { }
 
         /// <summary>
         /// Defines a heterogeneous binary relation with given mappings.
@@ -131,12 +129,39 @@ namespace Topos.Core
         }
 
         /// <summary>
+        /// Defines a heterogeneous binary relation with given mappings.
+        /// If the given mapping is invalid, it is ignored.
+        /// </summary>
+        /// <param name="a">Domain set of relation</param>
+        /// <param name="b">Codomain set of relation</param>
+        /// <param name="mappings">Mappings in terms of ordered pairs</param>
+        public BinaryRelation(Set a, Set b, params OrderedTuple[] mappings)
+        {
+            Domain = CopyFrom(a);
+            Codomain = CopyFrom(b);
+
+            foreach (var mapping in mappings)
+            {
+                if(mapping.Length == 2) 
+                { 
+                    MathObject pairIn = mapping[0];
+                    MathObject pairOut = mapping[1];
+                    if (pairIn.IsMemberOf(a) && pairOut.IsMemberOf(b))
+                        elements.Add(new OrderedTuple(mapping));
+                }
+            }
+        }
+        #endregion
+
+        #region diagonal
+
+        /// <summary>
         /// Creates a homogeneous diagonal binary relation.
         /// Let R be a homogeneous relation over set A,
         /// then for all a ∈ A, aRa holds.
         /// </summary>
         /// <param name="a">Domain and codomain sets of relation</param>
-        /// <returns></returns>
+        /// <returns>The diagonal binary relation</returns>
         public static BinaryRelation Diagonal(Set a)
         {
             (MathObject, MathObject)[] mappings = new (MathObject, MathObject)[a.Cardinality];
@@ -147,6 +172,37 @@ namespace Topos.Core
                 mappings[i++] = (m, m);
 
             return new BinaryRelation(a, mappings);
+        }
+
+        #endregion diagonal
+
+        #region restriction
+
+        /// <summary>
+        /// Restricts a binary relation R over A x B under smaller sets S ⊆ A
+        /// and T ⊆ B. If subset relations do not hold, returns an empty binary 
+        /// relation.
+        /// </summary>
+        /// <param name="s">Restricted domain of the binary relation</param>
+        /// <param name="t">Restricted codomain of the binary relation</param>
+        /// <returns>The restricted binary relation</returns>
+        public BinaryRelation Restriction(Set s, Set t)
+        {
+            if (s.IsSubsetOf(Domain) && t.IsSubsetOf(Codomain))
+                return new BinaryRelation(s, t, elements.Cast<OrderedTuple>().ToArray());
+            else return new BinaryRelation();
+        }
+
+        /// <summary>
+        /// Restricts a binary relation R over A under a smaller set S ⊆ A.
+        /// If the subset relation do not hold, returns an empty binary 
+        /// relation.
+        /// </summary>
+        /// <param name="s">Restricted domain and codomain of the binary relation</param>
+        /// <returns>The restricted binary relation</returns>
+        public BinaryRelation Restriction(Set s)
+        {
+            return Restriction(s, s);
         }
 
         #endregion

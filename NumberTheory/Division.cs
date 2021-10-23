@@ -1,7 +1,7 @@
 ﻿using System;
-using static System.Math;
 using Topos.Core;
-using System.Text;
+using System.Collections.Generic;
+using static System.Math;
 
 namespace Topos.NumberTheory
 {
@@ -12,7 +12,7 @@ namespace Topos.NumberTheory
     {
         /// <summary>
         /// Checks whether Integer a is divisible by Integer b.
-        /// Implemented as an extension method.
+        /// Notated as b | a
         /// </summary>
         /// <param name="a">Integer to be divided by b</param>
         /// <param name="b">Integer that divides a</param>
@@ -25,7 +25,6 @@ namespace Topos.NumberTheory
 
         /// <summary>
         /// Checks whether given two integers are relatively prime.
-        /// Implemented as an extension method.
         /// </summary>
         /// <param name="a">First integer</param>
         /// <param name="b">Second integer</param>
@@ -57,24 +56,24 @@ namespace Topos.NumberTheory
             // It is proven that gcd(a, b) = gcd(-a, b) = gcd(a, -b) = gcd(-a, -b),
             // however % operator is not modulus and works different
             // in negative numbers.
-            int a_int = Abs(a);
-            int b_int = Abs(b);
+            Integer a_int = Abs(a);
+            Integer b_int = Abs(b);
 
             // If at least one of the integers is 0, return the other integer as result
             if (a_int == 0 || b_int == 0)
                 return Max(a_int, b_int);
 
             // Select smaller integer as modulus
-            int modulus = Min(a_int, b_int);
+            Integer modulus = Min(a_int, b_int);
 
             // Select larger integer as dividend
-            int dividend = Max(a_int, b_int);
+            Integer dividend = Max(a_int, b_int);
 
             // Start Euclidean algorithm
             do
             {
                 // Store previous value of modulus
-                int temp = modulus;
+                Integer temp = modulus;
 
                 // Iterate
                 modulus = dividend % modulus;
@@ -132,6 +131,47 @@ namespace Topos.NumberTheory
 
             // Return the result
             return numbers[numbers.Length - 1];
+        }
+
+        /// <summary>
+        /// Returns the positive divisors of an integer.
+        /// Note: Inputting 0 throws exception because it returns an
+        /// infinite set, which is ℤ - {0}, which is not implemented 
+        /// yet.
+        /// </summary>
+        /// <param name="n">A non-zero integer</param>
+        /// <returns>Divisors of the integer</returns>
+        public static Set Divisors(this Integer n)
+        {
+            // Inputting 0 returns an infinite set, which is not implemented.
+            if (n == 0)
+                throw new NotImplementedException("Topos cannot handle infinite sets yet.");
+
+            // Some trivial cases are handled.
+            if (n == 1) return new Set(1);
+            else if (n == 2) return new Set(1, 2);
+
+            // Initialize the list of divisors.
+            List<Integer> divisors = new List<Integer>();
+
+            // Positive divisors only, so take the absolute value of n.
+            Integer n_int = Abs(n);
+
+            // Iterate through until the square root of n.
+            for (int i = 1; i <= Sqrt(n_int); i++)
+            {
+                if (IsDivisibleBy(n_int, i))
+                {
+                    divisors.Add(i);
+                    divisors.Add(n_int / i);
+                }
+            }
+
+            // Sort the divisors.
+            divisors.Sort((x, y) => ((int)x).CompareTo(y));
+
+            // Create the set of divisors.
+            return new Set(divisors.ToArray());
         }
     }
 }
