@@ -64,7 +64,7 @@ The output for this code will be
 ```
 That means in the set of first 10 natural numbers, even numbers and odd numbers get their own sets, and each equivalence class is an element of the partition set.
 
-However, instead of a brute force approach, to get this result, alternatively, we can build a small relation, then extend the relation using equivalence closure.
+However, instead of a brute force approach, to get this result, alternatively, we can build a smaller relation, then extend the relation using equivalence closure.
 
 ```C#
 public class someClass
