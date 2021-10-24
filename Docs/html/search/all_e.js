@@ -1,12 +1,11 @@
 var searchData=
 [
-  ['range_0',['Range',['../class_topos_1_1_core_1_1_binary_relation.html#a0cce1ad6d3ab41934e64b14e115b8a71',1,'Topos::Core::BinaryRelation']]],
-  ['rational_1',['Rational',['../class_topos_1_1_core_1_1_rational.html#a4c09bed80d3a5eb511b4ab28ecf1ef4d',1,'Topos.Core.Rational.Rational()'],['../class_topos_1_1_core_1_1_rational.html#aaaa4135f68a500191f565c22a09cec7a',1,'Topos.Core.Rational.Rational(int numerator, int denominator)'],['../class_topos_1_1_core_1_1_rational.html#ad4d44b0ce66df62b87b27e40883a4547',1,'Topos.Core.Rational.Rational(double decim)'],['../class_topos_1_1_core_1_1_rational.html',1,'Topos.Core.Rational']]],
-  ['rational_2ecs_2',['Rational.cs',['../_rational_8cs.html',1,'']]],
-  ['readme_2emd_3',['README.md',['../_docs_2_r_e_a_d_m_e_8md.html',1,'(Global Namespace)'],['../_r_e_a_d_m_e_8md.html',1,'(Global Namespace)']]],
-  ['real_4',['Real',['../class_topos_1_1_core_1_1_complex.html#a35c35ae9872207001c0833fac1cf2517',1,'Topos.Core.Complex.Real()'],['../class_topos_1_1_core_1_1_real.html#a1c7a077b669c41f4378c03987d5427ea',1,'Topos.Core.Real.Real()'],['../class_topos_1_1_core_1_1_real.html#ab73736f27eccf09645834c194abee0b7',1,'Topos.Core.Real.Real(double value)'],['../class_topos_1_1_core_1_1_real.html',1,'Topos.Core.Real']]],
-  ['real_2ecs_5',['Real.cs',['../_real_8cs.html',1,'']]],
-  ['reflexiveclosure_6',['ReflexiveClosure',['../class_topos_1_1_core_1_1_binary_relation.html#a04165b6f3b45c5d23166bf8d776cf131',1,'Topos::Core::BinaryRelation']]],
-  ['remove_7',['Remove',['../class_topos_1_1_core_1_1_binary_relation.html#ad46fced2ea5ae0634f185607cdbc2f36',1,'Topos.Core.BinaryRelation.Remove()'],['../class_topos_1_1_core_1_1_generic_1_1_generic_set.html#a2c733fbd9a955c707e9d6bf42903e8ea',1,'Topos.Core.Generic.GenericSet.Remove()'],['../class_topos_1_1_core_1_1_set.html#a9aeb1d5807105c96dc5a270421701b3b',1,'Topos.Core.Set.Remove()']]],
-  ['restriction_8',['Restriction',['../class_topos_1_1_core_1_1_binary_relation.html#abec54481d67f9b6ba1a708c49ba52859',1,'Topos.Core.BinaryRelation.Restriction(Set s, Set t)'],['../class_topos_1_1_core_1_1_binary_relation.html#ae12dcc99688e9a5b11f8a60e50f46731',1,'Topos.Core.BinaryRelation.Restriction(Set s)'],['../class_topos_1_1_core_1_1_function.html#a457c014ef6d887d36573b97b0134a598',1,'Topos.Core.Function.Restriction(Set s, Set t)'],['../class_topos_1_1_core_1_1_function.html#ac730b84e201ae49cbf9bd236222b48d9',1,'Topos.Core.Function.Restriction(Set s)']]]
+  ['powerset_0',['PowerSet',['../class_topos_1_1_core_1_1_generic_1_1_generic_set.html#a4b27bb851d731b4710c0d373103cafaf',1,'Topos.Core.Generic.GenericSet.PowerSet()'],['../class_topos_1_1_core_1_1_set.html#a6e1efd4de8c79b6a4697f94a0d2af41f',1,'Topos.Core.Set.PowerSet()']]],
+  ['preimage_1',['PreImage',['../class_topos_1_1_core_1_1_binary_relation.html#a4b9b1a9016b40515b52b5965db6e62bd',1,'Topos::Core::BinaryRelation']]],
+  ['preimageof_2',['PreImageOf',['../class_topos_1_1_core_1_1_binary_relation.html#a6103ea32b4ac4bc27f9e8b3264fc76bf',1,'Topos::Core::BinaryRelation']]],
+  ['primality_3',['Primality',['../class_topos_1_1_number_theory_1_1_primality.html',1,'Topos::NumberTheory']]],
+  ['primality_2ecs_4',['Primality.cs',['../_primality_8cs.html',1,'']]],
+  ['primesupto_5',['PrimesUpTo',['../class_topos_1_1_number_theory_1_1_primality.html#ad2aba3b2b32eb069534f43661e292750',1,'Topos::NumberTheory::Primality']]],
+  ['primitiveroots_6',['PrimitiveRoots',['../class_topos_1_1_number_theory_1_1_integer_congruence.html#a9921fa5fd1633db46e96678551ab3f1e',1,'Topos::NumberTheory::IntegerCongruence']]],
+  ['project_7',['Project',['../class_topos_1_1_core_1_1_ordered_tuple.html#a5886397630e9c8ccacbfb5b1ac1f0ba3',1,'Topos::Core::OrderedTuple']]]
 ];

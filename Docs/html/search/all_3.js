@@ -14,5 +14,6 @@ var searchData=
   ['congruence_3c_20integer_20_3e_11',['Congruence&lt; Integer &gt;',['../class_topos_1_1_number_theory_1_1_congruence.html',1,'Topos::NumberTheory']]],
   ['contains_12',['Contains',['../class_topos_1_1_core_1_1_generic_1_1_generic_set.html#ae37b5fbf6c5f63636f1117f3b86baa5f',1,'Topos.Core.Generic.GenericSet.Contains()'],['../class_topos_1_1_core_1_1_set.html#ac14faa5b007e49d4c1dbca0cd5ad47c4',1,'Topos.Core.Set.Contains()']]],
   ['converse_13',['Converse',['../class_topos_1_1_core_1_1_binary_relation.html#a209ed5be9a5c28b1357f60bbce59fccb',1,'Topos::Core::BinaryRelation']]],
-  ['copyfrom_14',['CopyFrom',['../class_topos_1_1_core_1_1_generic_1_1_generic_set.html#a5930fc5601df9e1d911c68105c9c36ae',1,'Topos.Core.Generic.GenericSet.CopyFrom()'],['../class_topos_1_1_core_1_1_set.html#abfa21de795c375ac727df3df04fc0b82',1,'Topos.Core.Set.CopyFrom()']]]
+  ['copyfrom_14',['CopyFrom',['../class_topos_1_1_core_1_1_generic_1_1_generic_set.html#a5930fc5601df9e1d911c68105c9c36ae',1,'Topos.Core.Generic.GenericSet.CopyFrom()'],['../class_topos_1_1_core_1_1_set.html#abfa21de795c375ac727df3df04fc0b82',1,'Topos.Core.Set.CopyFrom()']]],
+  ['countprimitiveroots_15',['CountPrimitiveRoots',['../class_topos_1_1_number_theory_1_1_integer_congruence.html#ac9506a69321639278106094a432bc67c',1,'Topos::NumberTheory::IntegerCongruence']]]
 ];

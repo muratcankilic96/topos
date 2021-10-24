@@ -27,7 +27,7 @@ namespace Topos.NumberTheory
             else if (n < 2) return n;
 
             // Assume all integers up to the given integer are relatively prime.
-            int count = n, multiples;
+            int count = n;
 
             // Iterate up to the square root of n.
             // Smallest prime factor of any n is less than or equal to sqrt(n).
@@ -36,19 +36,18 @@ namespace Topos.NumberTheory
                 // If n is divisible by i, i is a factor of n.
                 if(n % i == 0)
                 {
-                    // Eliminate all integers divisible by i, and its multiples from the list of relatively primes.
-                    multiples = count / i;
-                    count -= multiples;
-
                     // Disregard the given prime factor ({p_i}^{n_i}) from the number.
                     while (n % i == 0)
                         n /= i;
+
+                    // Eliminate all integers divisible by i, and its multiples from the list of relatively primes.
+                    count -= count / i;
                 }
             }
             // Eliminate remaining possible multiples
-            multiples = count / n;
+            if(n > 1) count -= count / n;
 
-            return count - multiples;
+            return count;
         }
 
         /// <summary>
@@ -128,12 +127,9 @@ namespace Topos.NumberTheory
 
             foreach (Exponential exp in primeFactors)
             {
-                Console.WriteLine("For: " + exp);
                 exp.Index = ((Real)exp.Index + 1) * x;
                 Real expBase = Math.Pow((Real)exp.Base, x);
-                Console.WriteLine("Check: " + exp.Index + " " + expBase + " " + exp.Compute());
                 product *= (exp.Compute() - 1) / (expBase - 1);
-                Console.WriteLine("Result: " + product);
             }
 
             return product;

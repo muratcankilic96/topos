@@ -10,8 +10,9 @@ namespace Topos.Core
     /// </summary>
     public class Rational : Real
     {
-        // Precision a read-only property of rationals that provided to prevent floating-point precision problems.
-        private readonly int PRECISION = 6;
+        // Precision a static property of rationals that provided to prevent floating-point precision problems.
+        private static uint PRECISION = 6;
+
         /// <summary>
         /// Upper part of the fraction.
         /// </summary>
@@ -75,13 +76,16 @@ namespace Topos.Core
             if (decim != 0)
             {
                 // Assume the number is the form decim/1, where numerator is not necessarily an integer
-                double numerator = Math.Round(decim, PRECISION);
-                int denominator = 1;
+                double numerator = Math.Round(decim, (int)PRECISION);
+                Integer denominator = 1;
 
-                // Repeat until numerator is an integer
-                while (Math.Abs(numerator - (int)numerator) > 1e-6)
+                // Set epsilon value
+                double epsilon = Math.Pow(10, -PRECISION);
+
+                // Repeat until numerator is (almost) an integer
+                while (Math.Abs(numerator - Math.Floor(numerator)) > epsilon)
                 {
-                    numerator *= 10;
+                    numerator = Math.Round(numerator * 10, (int)PRECISION);
                     denominator *= 10;
                 }
 
@@ -146,6 +150,11 @@ namespace Topos.Core
         public static Rational operator -(Rational q)
         {
             return new Rational(-q.Numerator, q.Denominator);
+        }
+
+        public static void SetPrecision(uint precision)
+        {
+            PRECISION = precision;
         }
     }
 }

@@ -71,6 +71,7 @@ $(function() {
 <p >ZFC ensures that there are no atomic elements, however, to increase comprehension, I included atomic elements where Element is its base class.</p>
 <p >Currently supported classes are:</p>
 <p ><a class="el" href="namespace_topos_1_1_core.html">Topos.Core</a></p><ul>
+<li>SetBuilder *(static)*</li>
 <li>MathObject *(abstract)*<ul>
 <li>Element<ul>
 <li>Invariant</li>
@@ -90,6 +91,7 @@ $(function() {
 </ul>
 </li>
 <li>Set<ul>
+<li>GeneratedSet</li>
 <li>OrderedTuple</li>
 <li>BinaryRelation<ul>
 <li>Function</li>
@@ -130,17 +132,21 @@ $(function() {
 <li>Primality *(static)*</li>
 </ul>
 <p >TO-DO:</p>
-<ul>
+<p ><a class="el" href="namespace_topos_1_1_core.html">Topos.Core</a>:</p><ul>
 <li>Exponentials will be represented as numbers, including complex number operations (will not support invariants)</li>
+<li>Infinite sets (Countably - Uncountably)</li>
+</ul>
+<p ><a class="el" href="namespace_topos_1_1_number_theory.html">Topos.NumberTheory</a>:</p><ul>
 <li>Modular arithmetic over integers<ul>
-<li>Primitive root</li>
+<li>Linear congruence (ax ≡ b (mod n))</li>
 <li>Index</li>
 <li>Quadratic residue</li>
 <li>Legendre and Jacobi symbols</li>
 </ul>
 </li>
-<li>Infinite sets (Countably - Uncountably)</li>
-<li>...</li>
+<li>Diophantine equations</li>
+<li>Fibonacci and Lucas sequences</li>
+<li>Continued fractions</li>
 </ul>
 <p >ISSUES:</p><ul>
 <li>Complex number operations between ordered tuples are not supported.</li>

@@ -22,6 +22,27 @@ namespace Topos.NumberTheory
         }
 
         /// <summary>
+        /// Checks whether the integer p is a power of prime.
+        /// </summary>
+        /// <param name="p">Input integer</param>
+        /// <returns>Whether the integer p is a power of prime</returns>
+        public static bool IsPrimePower(this Integer p)
+        {
+            // Trivial
+            if (p <= 1) return false;
+            // 1th power of prime
+            if (p.IsPrime()) return true;
+            // Other powers
+            Set factorization = p.FactorizeUnique();
+
+            // Prime factorization of a power of prime only holds one unique prime factor
+            if (factorization.Cardinality > 1) 
+                return false;
+            else 
+                return true;
+        }
+
+        /// <summary>
         /// Checks whether the integer n is a composite.
         /// </summary>
         /// <param name="n">Input integer</param>

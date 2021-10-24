@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['natural_0',['Natural',['../class_topos_1_1_core_1_1_natural.html#ade143eeda00a95d16d8f17716d0ef155',1,'Topos.Core.Natural.Natural()'],['../class_topos_1_1_core_1_1_natural.html#a9e756998bc1d1dec07d80e0ffd9643b3',1,'Topos.Core.Natural.Natural(uint value)']]]
+  ['map_0',['Map',['../class_topos_1_1_core_1_1_binary_relation.html#a62494b059338577f17165cfa14f80d7b',1,'Topos.Core.BinaryRelation.Map()'],['../class_topos_1_1_core_1_1_function.html#acfe5356d4d098b9fbb2ada95739be427',1,'Topos.Core.Function.Map()']]],
+  ['mod_1',['Mod',['../class_topos_1_1_number_theory_1_1_congruence.html#a5cc2f862d9a3c526c1bf371c14dc41ff',1,'Topos.NumberTheory.Congruence.Mod()'],['../class_topos_1_1_number_theory_1_1_integer_congruence.html#a74058be2f48fea552f07873f8d74d92c',1,'Topos.NumberTheory.IntegerCongruence.Mod(Integer a)'],['../class_topos_1_1_number_theory_1_1_integer_congruence.html#a52ed5ab4f8e3d9fca1f18c33e687998d',1,'Topos.NumberTheory.IntegerCongruence.Mod(Exponential exp)']]],
+  ['moebiusmu_2',['MoebiusMu',['../class_topos_1_1_number_theory_1_1_number_theoretic_functions.html#a8ac38097b6673e2b9105385623b175a6',1,'Topos::NumberTheory::NumberTheoreticFunctions']]],
+  ['multiplicativeinverse_3',['MultiplicativeInverse',['../class_topos_1_1_number_theory_1_1_integer_congruence.html#a5153960133eb8ae7f6f623d54dc18071',1,'Topos::NumberTheory::IntegerCongruence']]]
 ];

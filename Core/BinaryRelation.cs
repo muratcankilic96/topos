@@ -223,10 +223,30 @@ namespace Topos.Core
         /// (Invalid for binary relations.)
         /// </summary>
         /// <param name="obj">The element to be removed</param>
-        /// <returns>Whether the deletion is successful or not</returns>
-        public override bool Remove(MathObject obj)
+        public override bool Remove(MathObject obj) => false;
+
+        /// <summary>
+        /// Adds a mapping to the binary relation. 
+        /// Invalid mappings are ignored.
+        /// </summary>
+        /// <param name="map">The mapping to be added</param>
+        public void Add((MathObject, MathObject) map)
         {
-            return false;
+            if (map.Item1.IsMemberOf(Domain) && map.Item2.IsMemberOf(Codomain))
+            {
+                base.Add(new OrderedTuple(map.Item1, map.Item2));
+            }
+        }
+
+        /// <summary>
+        /// Removes a mapping from the binary relation. 
+        /// Invalid mappings are ignored.
+        /// </summary>
+        /// <param name="map">The mapping to be removed</param>
+        /// <returns>Whether the deletion is successful or not</returns>
+        public bool Remove((MathObject, MathObject) map)
+        {
+            return base.Remove(new OrderedTuple(map.Item1, map.Item2));
         }
 
         #endregion

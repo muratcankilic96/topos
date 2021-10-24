@@ -1,2 +1,4 @@
 obj/
 bin/
+SetBuilder.cs
+InfiniteSet.cs

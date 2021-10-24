@@ -9,6 +9,7 @@ ZFC ensures that there are no atomic elements, however, to increase comprehensio
 Currently supported classes are:
 
 Topos.Core
+* SetBuilder *(static)*
 * MathObject *(abstract)*
   * Element
     * Invariant
@@ -20,6 +21,7 @@ Topos.Core
       * Complex
 	* Exponential
   * Set
+    * GeneratedSet
     * OrderedTuple
 	* BinaryRelation
 	  * Function
@@ -45,14 +47,19 @@ Topos.NumberTheory
 
 TO-DO:
 
+Topos.Core:
 * Exponentials will be represented as numbers, including complex number operations (will not support invariants)
+* Infinite sets (Countably - Uncountably)
+
+Topos.NumberTheory:
 * Modular arithmetic over integers
-  * Primitive root
+  * Linear congruence (ax ≡ b (mod n))
   * Index
   * Quadratic residue
   * Legendre and Jacobi symbols
-* Infinite sets (Countably - Uncountably)
-* ...
+* Diophantine equations
+* Fibonacci and Lucas sequences
+* Continued fractions
 
 ISSUES:
 * Complex number operations between ordered tuples are not supported.
