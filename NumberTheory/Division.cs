@@ -2,6 +2,7 @@
 using Topos.Core;
 using System.Collections.Generic;
 using static System.Math;
+using Topos.Core.ToposExceptions;
 
 namespace Topos.NumberTheory
 {
@@ -93,7 +94,7 @@ namespace Topos.NumberTheory
         {
             // Throw exception for invalid number of inputs
             if (numbers.Length < 2)
-                throw new ArgumentException();
+                throw new ArgumentCountException();
 
             // Use recursive definition to compute Gcd from left to right for each number
             for(int i = 0; i < numbers.Length - 1; i++)
@@ -123,7 +124,7 @@ namespace Topos.NumberTheory
         {
             // Throw exception for invalid number of inputs
             if (numbers.Length < 2)
-                throw new ArgumentException();
+                throw new ArgumentCountException();
 
             // Use recursive definition to compute Lcm from left to right for each number
             for (int i = 0; i < numbers.Length - 1; i++)
@@ -145,7 +146,7 @@ namespace Topos.NumberTheory
         {
             // Inputting 0 returns an infinite set, which is not implemented.
             if (n == 0)
-                throw new NotImplementedException("Topos cannot handle infinite sets yet.");
+                throw new ToposException("Topos cannot handle infinite sets yet.");
 
             // Some trivial cases are handled.
             if (n == 1) return new Set(1);

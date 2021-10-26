@@ -1,6 +1,7 @@
 ﻿using System;
 using static System.Math;
 using System.Collections.Generic;
+using Topos.Core.ToposExceptions;
 using Topos.Core;
 
 namespace Topos.NumberTheory
@@ -62,7 +63,7 @@ namespace Topos.NumberTheory
         {
             // Negative domain is undefined.
             if (n < 0)
-                throw new ArgumentOutOfRangeException("Prime factorization must take nonnegative integers.");
+                throw new UndefinedDomainException("Prime factorization must take nonnegative integers.");
             // Some trivial cases are handled.
             else if (n == 1 || n == 0) return new Set();
             else if (n == 2) return new Set(2);

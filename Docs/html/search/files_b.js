@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['primality_2ecs_0',['Primality.cs',['../_primality_8cs.html',1,'']]]
+  ['orderedtuple_2ecs_0',['OrderedTuple.cs',['../_ordered_tuple_8cs.html',1,'']]]
 ];

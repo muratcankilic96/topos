@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['function_2ecs_0',['Function.cs',['../_function_8cs.html',1,'']]]
+  ['element_2ecs_0',['Element.cs',['../_element_8cs.html',1,'']]],
+  ['exponential_2ecs_1',['Exponential.cs',['../_exponential_8cs.html',1,'']]]
 ];

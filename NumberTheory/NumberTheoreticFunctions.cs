@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Topos.Core;
+using Topos.Core.ToposExceptions;
 
 namespace Topos.NumberTheory
 {
@@ -21,7 +22,7 @@ namespace Topos.NumberTheory
         {
             // Negative domain is undefined.
             if (n < 0)
-                throw new ArgumentOutOfRangeException("Euler totient function must take nonnegative integers.");
+                throw new UndefinedDomainException("Euler totient function must take nonnegative integers.");
 
             // Base cases.
             else if (n < 2) return n;
@@ -62,7 +63,7 @@ namespace Topos.NumberTheory
         {
             // Nonpositive domain is undefined.
             if (n <= 0)
-                throw new ArgumentOutOfRangeException("Divisor function must take positive integers.");
+                throw new UndefinedDomainException("Divisor function must take positive integers.");
 
             // Base case
             if (n == 1) return 1;
@@ -112,7 +113,7 @@ namespace Topos.NumberTheory
         {
             // Nonpositive domain is undefined.
             if (n <= 0)
-                throw new ArgumentOutOfRangeException("Divisor function must take positive integers.");
+                throw new UndefinedDomainException("Divisor function must take positive integers.");
 
             // Call divisor Tau special case if x = 0 (General formula encounters division by zero)
             if (x == 0) return DivisorTau(n);
@@ -145,7 +146,7 @@ namespace Topos.NumberTheory
         {
             // Nonpositive domain is undefined.
             if (n <= 0)
-                throw new ArgumentOutOfRangeException("Möbius μ function must take positive integers.");
+                throw new UndefinedDomainException("Möbius μ function must take positive integers.");
 
             // Base case
             if(n == 1) return 1;

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Topos.Core.ToposExceptions;
 
 namespace Topos.Core.Generic
 {
@@ -130,7 +131,7 @@ namespace Topos.Core.Generic
         {
             // Throw exception for invalid number of inputs
             if (sets.Length < 2)
-                throw new ArgumentException();
+                throw new ArgumentCountException();
 
             // Arrange the sets
             Set[] _sets = new Set[sets.Length];
@@ -157,7 +158,7 @@ namespace Topos.Core.Generic
         {
             // Throw exception for invalid number of inputs
             if (sets.Length < 2)
-                throw new ArgumentException();
+                throw new ArgumentCountException();
 
             // Arrange the sets
             Set[] _sets = new Set[sets.Length];
@@ -205,7 +206,7 @@ namespace Topos.Core.Generic
         {
             // Throw exception for invalid number of inputs
             if (sets.Length < 2)
-                throw new ArgumentException();
+                throw new ArgumentCountException();
 
             // Arrange the sets
             Set[] _sets = new Set[sets.Length];

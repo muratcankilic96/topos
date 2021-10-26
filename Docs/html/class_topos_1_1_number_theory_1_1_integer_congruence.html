@@ -99,7 +99,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a74058be2f48fea552f07873f8d74d92c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies modulo operation on the given integer.  <a href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a74058be2f48fea552f07873f8d74d92c">More...</a><br /></td></tr>
 <tr class="separator:a74058be2f48fea552f07873f8d74d92c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52ed5ab4f8e3d9fca1f18c33e687998d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a52ed5ab4f8e3d9fca1f18c33e687998d">Mod</a> (<a class="el" href="class_topos_1_1_core_1_1_exponential.html">Exponential</a> exp)</td></tr>
-<tr class="memdesc:a52ed5ab4f8e3d9fca1f18c33e687998d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies modulo operation on the given exponential. Both the base and the index of the exponential must be Integer types. Uses congruence properties for faster computation.  <a href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a52ed5ab4f8e3d9fca1f18c33e687998d">More...</a><br /></td></tr>
+<tr class="memdesc:a52ed5ab4f8e3d9fca1f18c33e687998d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies modulo operation on the given exponential. Both the base and the index of the exponential must be Integer types. Uses congruence properties for faster computation. For negative indices, the base must have a multiplicative inverse.  <a href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a52ed5ab4f8e3d9fca1f18c33e687998d">More...</a><br /></td></tr>
 <tr class="separator:a52ed5ab4f8e3d9fca1f18c33e687998d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91dd72289583a8c8f641cfde64bf72ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a91dd72289583a8c8f641cfde64bf72ee">Order</a> (<a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a> a)</td></tr>
 <tr class="memdesc:a91dd72289583a8c8f641cfde64bf72ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the order of a mod n. gcd(a, n) = 1 must hold.  <a href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a91dd72289583a8c8f641cfde64bf72ee">More...</a><br /></td></tr>
@@ -111,7 +111,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a55aecaaf1aae2b66e9a517de7c3fda2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether the integer congruence relation structure has at least 1 primitive roots. Only bases 1, 2, 4, and numbers of the form p^k, 2p^k where p is an odd prime can hold primitive roots.  <a href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a55aecaaf1aae2b66e9a517de7c3fda2e">More...</a><br /></td></tr>
 <tr class="separator:a55aecaaf1aae2b66e9a517de7c3fda2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33907c0c14f30d13caf615a71e36d5b0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a33907c0c14f30d13caf615a71e36d5b0">IsPrimitiveRoot</a> (<a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a> r)</td></tr>
-<tr class="memdesc:a33907c0c14f30d13caf615a71e36d5b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether the r is a primitive root. r is a primitive root if order of r modulo n is 1.  <a href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a33907c0c14f30d13caf615a71e36d5b0">More...</a><br /></td></tr>
+<tr class="memdesc:a33907c0c14f30d13caf615a71e36d5b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether the r is a primitive root. r is a primitive root if order of r modulo n is φ(n).  <a href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a33907c0c14f30d13caf615a71e36d5b0">More...</a><br /></td></tr>
 <tr class="separator:a33907c0c14f30d13caf615a71e36d5b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9921fa5fd1633db46e96678551ab3f1e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_topos_1_1_core_1_1_set.html">Set</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a9921fa5fd1633db46e96678551ab3f1e">PrimitiveRoots</a> ()</td></tr>
 <tr class="memdesc:a9921fa5fd1633db46e96678551ab3f1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the set of all primitive roots modulo n.  <a href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a9921fa5fd1633db46e96678551ab3f1e">More...</a><br /></td></tr>
@@ -122,10 +122,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5153960133eb8ae7f6f623d54dc18071"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a5153960133eb8ae7f6f623d54dc18071">MultiplicativeInverse</a> (<a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a> a)</td></tr>
 <tr class="memdesc:a5153960133eb8ae7f6f623d54dc18071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the multiplicative inverse of a modulo n. gcd(a, n) = 1 must hold, otherwise n does not have a multiplicative inverse.  <a href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a5153960133eb8ae7f6f623d54dc18071">More...</a><br /></td></tr>
 <tr class="separator:a5153960133eb8ae7f6f623d54dc18071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55cc5ed7e1d41cdd4a7af1a901681c29"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a55cc5ed7e1d41cdd4a7af1a901681c29">Index</a> (<a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a> a, <a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a> r)</td></tr>
-<tr class="separator:a55cc5ed7e1d41cdd4a7af1a901681c29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeef12bddbca934f980885565c5f2332b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_topos_1_1_core_1_1_set.html">Set</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_topos_1_1_number_theory_1_1_integer_congruence.html#aeef12bddbca934f980885565c5f2332b">SolveLinear</a> (<a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a> a, <a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a> b)</td></tr>
+<tr class="memdesc:aeef12bddbca934f980885565c5f2332b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the linear congruence ax ≡ b (mod n). If there are no solutions, returns an empty set.  <a href="class_topos_1_1_number_theory_1_1_integer_congruence.html#aeef12bddbca934f980885565c5f2332b">More...</a><br /></td></tr>
 <tr class="separator:aeef12bddbca934f980885565c5f2332b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55cc5ed7e1d41cdd4a7af1a901681c29"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a55cc5ed7e1d41cdd4a7af1a901681c29">Index</a> (<a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a> a, <a class="el" href="class_topos_1_1_core_1_1_integer.html">Integer</a> r)</td></tr>
+<tr class="memdesc:a55cc5ed7e1d41cdd4a7af1a901681c29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the index base r of a modulo n. Index is the value x in r^x ≡ a (mod n). </p><dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">UndefinedDomainException</td><td>Throws exception if the input r is not a primitive root or input a mod n is 0.</td></tr>
+  </table>
+  </dd>
+</dl>
+ <a href="class_topos_1_1_number_theory_1_1_integer_congruence.html#a55cc5ed7e1d41cdd4a7af1a901681c29">More...</a><br /></td></tr>
+<tr class="separator:a55cc5ed7e1d41cdd4a7af1a901681c29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfc29fd3d9888235d609e06013f2be1c"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_topos_1_1_number_theory_1_1_integer_congruence.html#abfc29fd3d9888235d609e06013f2be1c">ToString</a> ()</td></tr>
+<tr class="separator:abfc29fd3d9888235d609e06013f2be1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_topos_1_1_number_theory_1_1_congruence"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_topos_1_1_number_theory_1_1_congruence')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_topos_1_1_number_theory_1_1_congruence.html">Topos.NumberTheory.Congruence&lt; Integer &gt;</a></td></tr>
 <tr class="memitem:ad394ebd06750d3abc61225c6233a9d4d inherit pub_methods_class_topos_1_1_number_theory_1_1_congruence"><td class="memItemLeft" align="right" valign="top">abstract bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_topos_1_1_number_theory_1_1_congruence.html#ad394ebd06750d3abc61225c6233a9d4d">IsCongruent</a> (T a, T b)</td></tr>
 <tr class="separator:ad394ebd06750d3abc61225c6233a9d4d inherit pub_methods_class_topos_1_1_number_theory_1_1_congruence"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -264,6 +274,22 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Finds the index base r of a modulo n. Index is the value x in r^x ≡ a (mod n). </p><dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">UndefinedDomainException</td><td>Throws exception if the input r is not a primitive root or input a mod n is 0.</td></tr>
+  </table>
+  </dd>
+</dl>
+</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>An integer modulo n</td></tr>
+    <tr><td class="paramname">r</td><td>A primitive root modulo n</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Index base r of a</dd></dl>
+
 </div>
 </div>
 <a id="abc0c52164162b65c3798fe4dbb441773" name="abc0c52164162b65c3798fe4dbb441773"></a>
@@ -295,8 +321,8 @@ Properties</h2></td></tr>
 <p>Checks whether given integers are congruent to each other mod n. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">a</td><td>First integer</td></tr>
-    <tr><td class="paramname">b</td><td>Second integer</td></tr>
+    <tr><td class="paramname">a</td><td>First integer modulo n</td></tr>
+    <tr><td class="paramname">b</td><td>Second integer modulo n</td></tr>
   </table>
   </dd>
 </dl>
@@ -320,10 +346,10 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Checks whether the r is a primitive root. r is a primitive root if order of r modulo n is 1. </p>
+<p>Checks whether the r is a primitive root. r is a primitive root if order of r modulo n is φ(n). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">r</td><td>An integer</td></tr>
+    <tr><td class="paramname">r</td><td>An integer modulo n</td></tr>
   </table>
   </dd>
 </dl>
@@ -347,7 +373,13 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Applies modulo operation on the given exponential. Both the base and the index of the exponential must be Integer types. Uses congruence properties for faster computation. </p>
+<p>Applies modulo operation on the given exponential. Both the base and the index of the exponential must be Integer types. Uses congruence properties for faster computation. For negative indices, the base must have a multiplicative inverse. </p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">UndefinedDomainException</td><td>For negative indices, the base must have a multiplicative inverse</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">a</td><td>Exponential to be operated</td></tr>
@@ -431,7 +463,7 @@ Properties</h2></td></tr>
 <p>Computes the order of a mod n. gcd(a, n) = 1 must hold. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">a</td><td>Integer a modulo n</td></tr>
+    <tr><td class="paramname">a</td><td>An integer modulo n</td></tr>
   </table>
   </dd>
 </dl>
@@ -481,6 +513,33 @@ Properties</h2></td></tr>
           <td></td>
           <td>)</td>
           <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Solves the linear congruence ax ≡ b (mod n). If there are no solutions, returns an empty set. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>Integer a modulo n</td></tr>
+    <tr><td class="paramname">b</td><td>Integer b modulo n</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Set of solutions of the linear congruence</dd></dl>
+
+</div>
+</div>
+<a id="abfc29fd3d9888235d609e06013f2be1c" name="abfc29fd3d9888235d609e06013f2be1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfc29fd3d9888235d609e06013f2be1c">&#9670;&nbsp;</a></span>ToString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">override string Topos.NumberTheory.IntegerCongruence.ToString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">

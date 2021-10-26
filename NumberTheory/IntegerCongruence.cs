@@ -1,7 +1,8 @@
-﻿using System;
+﻿using static System.Math;
 using System.Collections.Generic;
-using System.Text;
 using Topos.Core;
+using Topos.Core.ToposExceptions;
+using System;
 
 namespace Topos.NumberTheory
 {
@@ -28,14 +29,14 @@ namespace Topos.NumberTheory
             if (n > 0)
                 Base = n;
             else
-                throw new ArgumentOutOfRangeException("Base of congruence relation structure must be larger than 0.");
+                throw new UndefinedDomainException("Base of congruence relation structure must be larger than 0.");
         }
 
         /// <summary>
         /// Checks whether given integers are congruent to each other mod n.
         /// </summary>
-        /// <param name="a">First integer</param>
-        /// <param name="b">Second integer</param>
+        /// <param name="a">First integer modulo n</param>
+        /// <param name="b">Second integer modulo n</param>
         /// <returns>Whether given integers are congruent to each other mod n</returns>
         public override bool IsCongruent(Integer a, Integer b)
         {
@@ -56,7 +57,9 @@ namespace Topos.NumberTheory
         /// Applies modulo operation on the given exponential.
         /// Both the base and the index of the exponential must be Integer types.
         /// Uses congruence properties for faster computation.
+        /// For negative indices, the base must have a multiplicative inverse.
         /// </summary>
+        /// <exception cref="UndefinedDomainException">For negative indices, the base must have a multiplicative inverse</exception>
         /// <param name="a">Exponential to be operated</param>
         /// <returns>Result of the modulo operation</returns>
         public Integer Mod(Exponential exp)
@@ -66,8 +69,8 @@ namespace Topos.NumberTheory
             int expIndex = (Integer) exp.Index;
 
             // Index must non-negative.
-            if(expIndex < 0)
-                throw new ArgumentOutOfRangeException("Index of the exponent must be non-negative.");
+            if(expIndex < 0 && MultiplicativeInverse(expBase) == 0)
+                throw new UndefinedDomainException("For negative indices, the base must have a multiplicative inverse.");
 
             // Theorem: For a^b ≡ x (mod n), b ≡ y (mod φ(n)).
             // With this, a large index can be reduced into a smaller one.
@@ -93,7 +96,7 @@ namespace Topos.NumberTheory
         /// Computes the order of a mod n.
         /// gcd(a, n) = 1 must hold.
         /// </summary>
-        /// <param name="a">Integer a modulo n</param>
+        /// <param name="a">An integer modulo n</param>
         /// <returns>Order a modulo n, or 0 if gcd(a, n) = 1 does not hold</returns>
         public Integer Order(Integer a)
         {
@@ -156,9 +159,9 @@ namespace Topos.NumberTheory
 
         /// <summary>
         /// Checks whether the r is a primitive root.
-        /// r is a primitive root if order of r modulo n is 1.
+        /// r is a primitive root if order of r modulo n is φ(n).
         /// </summary>
-        /// <param name="r">An integer</param>
+        /// <param name="r">An integer modulo n</param>
         /// <returns>Whether the r is a primitive root</returns>
         public bool IsPrimitiveRoot(Integer r) 
         {
@@ -238,10 +241,103 @@ namespace Topos.NumberTheory
 
         #endregion
 
-        #region to-do
-        public Integer Index(Integer a, Integer r) { return 0; }
+        #region linear_congruence
 
-        public Set SolveLinear(Integer a, Integer b) { return new Set(); }
+        /// <summary>
+        /// Solves the linear congruence ax ≡ b (mod n).
+        /// If there are no solutions, returns an empty set.
+        /// </summary>
+        /// <param name="a">Integer a modulo n</param>
+        /// <param name="b">Integer b modulo n</param>
+        /// <returns>Set of solutions of the linear congruence</returns>
+        public Set SolveLinear(Integer a, Integer b)
+        {
+            // Theorem: The linear congruence ax ≡ b (mod n) has a solution if and only if d = gcd(a, n) | b.
+            // Theorem: If a linear congruence ax ≡ b (mod n) has a solution, then d is equal to the number of solutions modulo n.
+            Integer d = Division.Gcd(a, Base);
+            if (!b.IsDivisibleBy(d)) return new Set();
+
+            // Theorem: If ca ≡ cb (mod n) and d = gcd(c, n), then a ≡ b (mod n / d).
+            // Other solutions can be generated from the solution of reduced congruence.
+            Integer reducedModulo = Base / d;
+            IntegerCongruence reducedCongruence = new IntegerCongruence(reducedModulo);
+
+            Set solutions = new Set();
+
+            // First solution.
+            Integer x_0 = reducedCongruence.Mod(reducedCongruence.MultiplicativeInverse(a) * b);
+
+            solutions.Add(x_0);
+
+            // Generate other solutions
+            for(Integer i = 1; i < d; i++)
+                solutions.Add(x_0 + i * reducedModulo);
+
+            return solutions;
+        }
+
+        #endregion
+
+        #region index
+
+        /// <summary>
+        /// Finds the index base r of a modulo n.
+        /// Index is the value x in r^x ≡ a (mod n).
+        /// <exception cref="UndefinedDomainException">Throws exception if the input r is not a primitive root or input a mod n is 0.</exception>
+        /// </summary>
+        /// <param name="a">An integer modulo n</param>
+        /// <param name="r">A primitive root modulo n</param>
+        /// <returns>Index base r of a</returns>
+        public Integer Index(Integer a, Integer r) 
+        {
+            // Congruence
+            r = Mod(r);
+            a = Mod(a);
+
+            // r must be a primitive root and a must be non-zero mod n.
+            if (!IsPrimitiveRoot(r)) throw new UndefinedDomainException($"{r} must be a primitive root.");
+            else if (a == 0) throw new UndefinedDomainException($"Index base {r} of 0 is undefined.");
+
+            // Trivial cases
+            else if (a == 1) return 0;
+            else if (a == r) return 1;
+
+            // Uses Baby-Step Giant-Step for efficiency since integer mod n is a finite cyclic group.
+            
+            Integer c = (int) Ceiling(Sqrt(Base));
+            Dictionary<Integer, Integer> s = new Dictionary<Integer, Integer>();
+
+            // Store all exponents up to the ceiling of square root of base in a set.
+            for (Integer i = 0; i < c; i++)
+            {
+                Integer mod = Mod(new Exponential(r, i));
+                s.Add(i, mod);
+            }
+            // Compute r^(-c)
+            Integer inverse = Mod(new Exponential(MultiplicativeInverse(r), c));
+            Integer a_ = a;
+
+            // Pair check
+            for(Integer i = 0; i < c; i++)
+            {
+                foreach(var d in s)
+                {
+                    if(d.Value == a_)
+                        return Mod(i * c + d.Key);
+                }
+                a_ = Mod(a_ * inverse);
+            }
+            return 0;
+        }
+
+        #endregion
+
+        #region override
+
+        public override string ToString()
+        {
+            return $"a ≡ b (mod {Base})";
+        }
 
         #endregion
     }

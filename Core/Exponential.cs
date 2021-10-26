@@ -1,4 +1,5 @@
 ﻿using System;
+using Topos.Core.ToposExceptions;
 
 namespace Topos.Core
 {
@@ -70,11 +71,11 @@ namespace Topos.Core
                 return new Real(Math.Pow(a, b));
             }
             else if (Base is Complex || Index is Complex)
-                throw new ToposExceptions.ComplexDomainException();
+                throw new ComplexDomainException();
             else if (Base is Invariant || Index is Invariant)
-                throw new ToposExceptions.InvariantException();
+                throw new InvariantException();
             else
-                throw new ToposExceptions.ToposException("Encountered unknown type of element.");
+                throw new ToposException("Encountered unknown type of element.");
         }
         #endregion 
 

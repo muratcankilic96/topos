@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using Topos.Core.ToposExceptions;
 
 namespace Topos.Core
 {
@@ -279,7 +280,7 @@ namespace Topos.Core
         {
             // Throw exception for invalid number of inputs
             if (rels.Length < 2)
-                throw new ArgumentException();
+                throw new ArgumentCountException();
 
             // Construct original copy.
             BinaryRelation originRels = new BinaryRelation(rels[0].Domain, rels[0].Codomain);
@@ -316,7 +317,7 @@ namespace Topos.Core
         {
             // Throw exception for invalid number of inputs
             if (rels.Length < 2)
-                throw new ArgumentException();
+                throw new ArgumentCountException();
 
             // Construct original copy.
             BinaryRelation originRels = new BinaryRelation(rels[0].Domain, rels[0].Codomain);

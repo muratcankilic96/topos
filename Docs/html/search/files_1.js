@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['binaryrelation_2ecs_0',['BinaryRelation.cs',['../_binary_relation_8cs.html',1,'']]]
+  ['argumentcountexception_2ecs_0',['ArgumentCountException.cs',['../_argument_count_exception_8cs.html',1,'']]]
 ];

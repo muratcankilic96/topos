@@ -9,7 +9,6 @@ ZFC ensures that there are no atomic elements, however, to increase comprehensio
 Currently supported classes are:
 
 Topos.Core
-* SetBuilder *(static)*
 * MathObject *(abstract)*
   * Element
     * Invariant
@@ -33,9 +32,11 @@ Topos.Core.Generic
 Topos.Core.Exceptions
 * Exception *(.NET)*
   * ToposException
+    * ArgumentCountException
     * DimensionMismatchException
     * InvariantException
-    * ComplexDomainException
+	* UndefinedDomainException
+      * ComplexDomainException
 
 Topos.NumberTheory
 * MathObject *(from Topos.Core)*
@@ -53,8 +54,6 @@ Topos.Core:
 
 Topos.NumberTheory:
 * Modular arithmetic over integers
-  * Linear congruence (ax ≡ b (mod n))
-  * Index
   * Quadratic residue
   * Legendre and Jacobi symbols
 * Diophantine equations

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['primality_0',['Primality',['../class_topos_1_1_number_theory_1_1_primality.html',1,'Topos::NumberTheory']]]
+  ['orderedtuple_0',['OrderedTuple',['../class_topos_1_1_core_1_1_ordered_tuple.html',1,'Topos::Core']]]
 ];

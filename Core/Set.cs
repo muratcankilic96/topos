@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Topos.Core.ToposExceptions;
 
 namespace Topos.Core
 {
@@ -147,7 +148,7 @@ namespace Topos.Core
 
             // Throw exception for invalid number of inputs
             if (setsCopy.Length < 2)
-                throw new ArgumentException();
+                throw new ArgumentCountException();
 
             for(int i = 1; i < sets.Length; i++)
                 setsCopy[0].elements.UnionWith(setsCopy[i].elements);
@@ -185,7 +186,7 @@ namespace Topos.Core
 
             // Throw exception for invalid number of inputs
             if (setsCopy.Length < 2)
-                throw new ArgumentException();
+                throw new ArgumentCountException();
 
             for (int i = 1; i < setsCopy.Length; i++)
                 setsCopy[0].elements.IntersectWith(setsCopy[i].elements);

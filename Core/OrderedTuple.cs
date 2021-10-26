@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Topos.Core.ToposExceptions;
 
 namespace Topos.Core
 {
@@ -148,10 +148,10 @@ namespace Topos.Core
         private static void NumericControl(OrderedTuple a, OrderedTuple b)
         {
             if (a.Length != b.Length)
-                throw new ToposExceptions.DimensionMismatchException(a.Length, b.Length);
+                throw new DimensionMismatchException(a.Length, b.Length);
 
             if(!a.IsNumberCollection() || !b.IsNumberCollection())
-                    throw new ToposExceptions.InvariantException();
+                    throw new InvariantException();
         }
 
         // Operations between ordered tuples are overridden. 

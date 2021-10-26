@@ -71,7 +71,6 @@ $(function() {
 <p >ZFC ensures that there are no atomic elements, however, to increase comprehension, I included atomic elements where Element is its base class.</p>
 <p >Currently supported classes are:</p>
 <p ><a class="el" href="namespace_topos_1_1_core.html">Topos.Core</a></p><ul>
-<li>SetBuilder *(static)*</li>
 <li>MathObject *(abstract)*<ul>
 <li>Element<ul>
 <li>Invariant</li>
@@ -111,9 +110,13 @@ $(function() {
 <p >Topos.Core.Exceptions</p><ul>
 <li>Exception *(.NET)*<ul>
 <li>ToposException<ul>
+<li>ArgumentCountException</li>
 <li>DimensionMismatchException</li>
 <li>InvariantException</li>
+<li>UndefinedDomainException<ul>
 <li>ComplexDomainException</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -138,8 +141,6 @@ $(function() {
 </ul>
 <p ><a class="el" href="namespace_topos_1_1_number_theory.html">Topos.NumberTheory</a>:</p><ul>
 <li>Modular arithmetic over integers<ul>
-<li>Linear congruence (ax ≡ b (mod n))</li>
-<li>Index</li>
 <li>Quadratic residue</li>
 <li>Legendre and Jacobi symbols</li>
 </ul>

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Topos.Core.ToposExceptions
 {
-    class ComplexDomainException : ToposException
+    class ComplexDomainException : UndefinedDomainException
     {
         public ComplexDomainException() : base("Cannot operate on the field of complex numbers.")
         {
