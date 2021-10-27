@@ -11,7 +11,7 @@ Currently supported classes are:
 Topos.Core
 * MathObject *(abstract)*
   * Element
-    * Invariant
+    * Indeterminate
     * Number *(abstract)*
       * Real
         * Integer
@@ -34,7 +34,7 @@ Topos.Core.Exceptions
   * ToposException
     * ArgumentCountException
     * DimensionMismatchException
-    * InvariantException
+    * IndeterminateException
 	* UndefinedDomainException
       * ComplexDomainException
 
@@ -49,14 +49,13 @@ Topos.NumberTheory
 TO-DO:
 
 Topos.Core:
-* Exponentials will be represented as numbers, including complex number operations (will not support invariants)
+* Exponentials will be represented as numbers, including complex number operations (will not support Indeterminates)
 * Infinite sets (Countably - Uncountably)
 
 Topos.NumberTheory:
 * Modular arithmetic over integers
-  * Quadratic residue
-  * Legendre and Jacobi symbols
-* Diophantine equations
+  * Finding solutions of x^2 ≡ a (mod n)
+* Linear Diophantine equations
 * Fibonacci and Lucas sequences
 * Continued fractions
 

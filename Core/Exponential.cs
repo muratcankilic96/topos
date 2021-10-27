@@ -23,7 +23,7 @@ namespace Topos.Core
 
         /// <summary>
         /// Creates an exponential representation.
-        /// They can also store invariants.
+        /// They can also store indeterminates.
         /// </summary>
         /// <param name="basePart">Base part of the exponential representation</param>
         /// <param name="indexPart">Index part of the exponential representation</param>
@@ -72,8 +72,8 @@ namespace Topos.Core
             }
             else if (Base is Complex || Index is Complex)
                 throw new ComplexDomainException();
-            else if (Base is Invariant || Index is Invariant)
-                throw new InvariantException();
+            else if (Base is Indeterminate || Index is Indeterminate)
+                throw new IndeterminateException();
             else
                 throw new ToposException("Encountered unknown type of element.");
         }
@@ -114,7 +114,7 @@ namespace Topos.Core
             } 
             catch
             {
-                // Complex and invariant expressions
+                // Complex and indeterminate expressions
                 return a.Base.Equals(b.Base) && a.Index.Equals(b.Index);
             }
 
@@ -144,7 +144,7 @@ namespace Topos.Core
             }
             catch
             {
-                // Complex and invariant expressions
+                // Complex and indeterminate expressions
                 return (Base, Index).GetHashCode();
             }
         }

@@ -15,7 +15,7 @@ namespace Topos.NumberTheory
         /// <summary>
         /// Computes how many positive relatively prime integers are there, up to the given integer.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Euler totient function can only take nonnegative integers.</exception>
+        /// <exception cref="UndefinedDomainException">Euler totient function can only take nonnegative integers.</exception>
         /// <param name="n">A nonnegative integer</param>
         /// <returns>Number of relatively prime integers 0 \< x \< n</returns>
         public static Integer EulerTotient(this Integer n)
@@ -56,7 +56,7 @@ namespace Topos.NumberTheory
         /// Returns the number of divisors of n.
         /// Degree 0: σ₀(n) = τ(n)
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Divisor function can only take positive integers.</exception>
+        /// <exception cref="UndefinedDomainException">Divisor function can only take positive integers.</exception>
         /// <param name="n">A positive integer</param>
         /// <returns>Number of divisors of n</returns>
         public static Integer DivisorTau(this Integer n)
@@ -81,7 +81,7 @@ namespace Topos.NumberTheory
             Integer product = 1;
 
             foreach (Integer i in primeExponents) {
-                product *= (i + 1);
+                product *= i + 1;
             }
 
             return product;
@@ -92,7 +92,7 @@ namespace Topos.NumberTheory
         /// Returns the sum of divisors of n.
         /// Degree 1: σ₁(n) = σ(n)
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Divisor function can only take positive integers.</exception>
+        /// <exception cref="UndefinedDomainException">Divisor function can only take positive integers.</exception>
         /// <param name="n">A positive integer</param>
         /// <returns>Sum of divisors of n</returns>
         public static Integer DivisorSigma(this Integer n)
@@ -105,7 +105,7 @@ namespace Topos.NumberTheory
         /// Computes the divisor function. 
         /// Returns the sum of xth powers of divisors of n.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Divisor function can only take positive integers.</exception>
+        /// <exception cref="UndefinedDomainException">Divisor function can only take positive integers.</exception>
         /// <param name="n">A positive integer</param>
         /// <param name="x">Degree of the divisor function</param>
         /// <returns>Sum of xth powers of divisors of n</returns>
@@ -140,6 +140,7 @@ namespace Topos.NumberTheory
         /// Möbius μ function is a function that returns either -1, 0, or 1 depending on
         /// the integer. It is used for Möbius inversion formula.
         /// </summary>
+        /// <exception cref="UndefinedDomainException">Möbius μ function must take positive integers.</exception>
         /// <param name="n">A positive integer</param>
         /// <returns></returns>
         public static Integer MoebiusMu(this Integer n)

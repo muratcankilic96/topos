@@ -72,9 +72,10 @@ namespace Topos.NumberTheory
             if(expIndex < 0 && MultiplicativeInverse(expBase) == 0)
                 throw new UndefinedDomainException("For negative indices, the base must have a multiplicative inverse.");
 
-            // Theorem: For a^b ≡ x (mod n), b ≡ y (mod φ(n)).
+            // Theorem: Whenever gcd(a, n) = 1, for a^b ≡ x (mod n), b ≡ y (mod φ(n)).
             // With this, a large index can be reduced into a smaller one.
-            expIndex = new IntegerCongruence(Base.EulerTotient()).Mod(expIndex);
+            if(Division.IsRelativelyPrime(expBase, Base))
+                expIndex = new IntegerCongruence(Base.EulerTotient()).Mod(expIndex);
 
             // Trivial case
             if (expIndex == 0)
@@ -328,6 +329,191 @@ namespace Topos.NumberTheory
                 a_ = Mod(a_ * inverse);
             }
             return 0;
+        }
+
+        #endregion
+
+        #region quadratic_residue
+
+        /// <summary>
+        /// Checks whether a is a quadratic residue or not.
+        /// For gcd(a, n) = 1 takes advantage of Legendre symbols.
+        /// For gcd(a, n) != 1 uses brute force.
+        /// a is a quadratic residue if and only if the equation 
+        /// x^2 ≡ a (mod n) is solvable.
+        /// Solvability rules:
+        /// [Let n = 2^(r_0) * p_1^(r_1) * p_2^(r_2) * ... (p_k)^(r_k)]
+        /// (1) a ≡ 0 (mod n) or a ≡ 1 (mod n)
+        /// (2) n = 1 or n = 2
+        /// (3) If n is odd, then all (a / p_i) = 1 i = 1, 2, ..., r
+        /// (4) If n is even, rule (2) (except even prime factor) and
+        ///   (a) a ≡ 1 (mod 4) if 4 | n but 8 ∤ n
+        ///   (b) a ≡ 1 (mod 8) if 8 | n
+        /// </summary>
+        /// <param name="a">An integer modulo n</param>
+        /// <returns>Whether a is a quadratic residue or not</returns>
+        public bool IsQuadraticResidue(Integer a)
+        {
+            a = Mod(a);
+
+            // Trivial cases
+            if (Base <= 2 || a <= 1) return true;
+
+            // Case gcd(a, n) = 1
+            if (a.IsRelativelyPrime(Base)) 
+            {
+                // Prime case
+                if (Base.IsPrime())
+                    return Legendre(a) == 1;
+
+                // Non-prime cases
+                Set primes = Base.FactorizeUnique();
+
+                primes.Remove(2);
+
+                foreach(Integer p in primes)
+                    if (new IntegerCongruence(p).Legendre(a) != 1) return false;
+
+                // Odd case
+                if (Base % 2 == 1)
+                    return true;
+                else
+                // Even case
+                    return (Base % 2 == 0 && Base % 4 != 0 && Base % 8 != 0) || (Base % 4 == 0 && Base % 8 != 0 && a % 4 == 1) || (Base % 8 == 0 && a % 8 == 1);
+            }
+            else
+            // Case gcd(a, n) != 1 (Worst-case complexity O(n))
+            {
+                for(Integer i = 2; i < Base; i++)
+                {
+                    if (IsCongruent(Mod(new Exponential(i, 2)), a)) 
+                        return true;
+                }
+                return false;
+            }
+        }
+
+        /// <inheritdoc cref="Legendre(Integer, Integer)"/>
+        public static Integer Legendre(Integer a, Integer n)
+        {
+            return new IntegerCongruence(n).Legendre(a);
+        }
+
+        /// <summary>
+        /// Legendre symbol is a multiplicative function defined as:
+        ///  1 : if a is a quadratic residue modulo p
+        /// -1 : if a is a quadratic nonresidue modulo p
+        ///  0 : if a ≡ 0 modulo p
+        /// Its generalization is Jacobi symbol, where it can be written the multiplication
+        /// of prime factorizations of the modulo base.
+        /// This function implements Jacobi symbol, hence
+        /// Legendre symbol is also denoted as (a / p) where p is an odd prime.
+        /// Its generalization also does not support even numbers.
+        /// </summary>
+        /// <exception cref="UndefinedDomainException">Legendre and Jacobi symbols are undefined for even bases. 
+        /// Use IsQuadraticResidue instead.</exception>
+        /// <param name="a">An integer modulo n</param>
+        /// <param name="n">Base of the integer congruence</param>
+        /// <returns>-1, 1, or 0 depending on the input</returns>
+        public Integer Legendre(Integer a)
+        {
+            // Legendre symbol is not supported for even bases.
+            if(Base % 2 == 0)
+                throw new UndefinedDomainException("Legendre and Jacobi symbols are undefined for even bases. Use IsQuadraticResidue instead.");
+
+            // Trivial cases
+            if (Base == 1) return 1;
+
+            // If at least for one prime factor p_i, (a / p_i) = 0 the result is 0.
+            a = Mod(a);
+
+            if (a == 0) return 0;
+
+            // Solve base case of the recursion
+            // Base case implies that n is a prime and a ≡ -1, 1, 2, or 3 (mod p)
+
+            Integer minus_zero = -AdditiveInverse(a);
+
+            if(Base.IsPrime()) 
+            { 
+                if(a == minus_zero)
+                {
+                    // Theorem: (-1 / p) = 1 if p ≡ 1 (mod 4) and -1 otherwise
+                    if (Base % 4 == 1) return 1;
+                    else return -1;
+                }
+                else if(a == 1)
+                {
+                    // Theorem: (1 / p) = 1
+                    return 1;
+                }
+                else if (a == 2)
+                {
+                    // Theorem: (2 / p) = 1 if p ≡ 1 (mod 8) or p ≡ 7 (mod 8), and -1 otherwise
+                    if (Base % 8 == 1 || Base % 8 == 7) return 1;
+                    else return -1;
+                }
+                else if (a == 3)
+                {
+                    // Theorem: (3 / p) = 1 if p ≡ 1 or 11 (mod 12) and -1 otherwise
+                    if (Base % 12 == 1 || Base % 12 == 11) return 1;
+                    else return -1;
+                }
+                else if (a.IsPrime())
+                {
+                    // For (p / q), if p and q are primes, apply quadratic reciprocity law
+                    // (p / q) = (q / p) if q ≡ 1 (mod 4) or p ≡ 1 (mod 4), -(q / p) otherwise.
+                    if (a % 4 == 1 || Base % 4 == 1)
+                        return new IntegerCongruence(a).Legendre(Base);
+                    else
+                        return -new IntegerCongruence(a).Legendre(Base);
+                }
+                else // a is composite
+                {
+                    Integer result = 1;
+                    // Theorem: (ab / p) = (a / p)(b / p)
+                    Set a_primes = a.Factorize();
+
+                    // Factorize the base into its primes
+                    foreach (Exponential qs in a_primes)
+                    {
+                        // Get the prime and its power
+                        Integer q = (Integer)qs.Base;
+                        Integer s = (Integer)qs.Index;
+
+                        // Theorem: (q^2 / p) = 1
+                        // Even powers can be ignored.
+                        if (s % 2 == 1)
+                        {
+                            result *= Legendre(q);
+                        }
+                    }
+                    return result;
+                }
+            }
+            else
+            // Jacobi symbol implementation starts from here
+            {
+                Set n_primes = Base.Factorize();
+
+                Integer result = 1;
+
+                // Factorize the base into its primes
+                foreach (Exponential pr in n_primes)
+                {
+                    // Get the prime and its power
+                    Integer p = (Integer)pr.Base;
+                    Integer r = (Integer)pr.Index;
+
+                    // Even powers q_i of r_i always result with (a / p_i)^(r_i) = 1.
+                    // They will not affect the overall result. Then, only operate on odd powers.
+                    if (r % 2 == 1)
+                    {
+                        result *= new IntegerCongruence(p).Legendre(a);
+                    }
+                }
+                return result;
+            }
         }
 
         #endregion

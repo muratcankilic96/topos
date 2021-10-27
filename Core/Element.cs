@@ -6,7 +6,7 @@
     /// </summary>
     public abstract class Element : MathObject
     {
-        public static implicit operator Element(string s) => new Invariant(s);
+        public static implicit operator Element(string s) => new Indeterminate(s);
         public static implicit operator Element(double d) => new Real(d);
         public static implicit operator Element((double, double) t) => new Complex(t.Item1, t.Item2);
         public static implicit operator Element((int, int) t) => new Rational(t.Item1, t.Item2);

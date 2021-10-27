@@ -151,7 +151,7 @@ namespace Topos.Core
                 throw new DimensionMismatchException(a.Length, b.Length);
 
             if(!a.IsNumberCollection() || !b.IsNumberCollection())
-                    throw new InvariantException();
+                    throw new IndeterminateException();
         }
 
         // Operations between ordered tuples are overridden. 

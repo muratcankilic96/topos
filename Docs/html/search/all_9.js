@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['identifier_0',['Identifier',['../class_topos_1_1_core_1_1_invariant.html#aff8c014b916c3521c4976b58173a1a2a',1,'Topos::Core::Invariant']]],
+  ['identifier_0',['Identifier',['../class_topos_1_1_core_1_1_indeterminate.html#aff8c014b916c3521c4976b58173a1a2a',1,'Topos::Core::Indeterminate']]],
   ['identity_1',['Identity',['../class_topos_1_1_core_1_1_function.html#ac98a016d44833f7c0a24dc4611ad7a3a',1,'Topos::Core::Function']]],
   ['imageof_2',['ImageOf',['../class_topos_1_1_core_1_1_binary_relation.html#aa830d6c8b54b48c0101b95d66ff657e2',1,'Topos::Core::BinaryRelation']]],
   ['imaginary_3',['Imaginary',['../class_topos_1_1_core_1_1_complex.html#a0c4f655d52af8591a0429b479cf1f9a9',1,'Topos::Core::Complex']]],
@@ -11,10 +11,10 @@ var searchData=
   ['integercongruence_8',['IntegerCongruence',['../class_topos_1_1_number_theory_1_1_integer_congruence.html#a9d4b510c7885a647aa3988631b7ee099',1,'Topos.NumberTheory.IntegerCongruence.IntegerCongruence()'],['../class_topos_1_1_number_theory_1_1_integer_congruence.html',1,'Topos.NumberTheory.IntegerCongruence']]],
   ['integercongruence_2ecs_9',['IntegerCongruence.cs',['../_integer_congruence_8cs.html',1,'']]],
   ['intersection_10',['Intersection',['../class_topos_1_1_core_1_1_binary_relation.html#abf7def3e549db62fda9fa24fc63d9b23',1,'Topos.Core.BinaryRelation.Intersection(BinaryRelation r, BinaryRelation s)'],['../class_topos_1_1_core_1_1_binary_relation.html#aa13a77b64bb40f666256d8cd36dbf40c',1,'Topos.Core.BinaryRelation.Intersection(params BinaryRelation[] rels)'],['../class_topos_1_1_core_1_1_generic_1_1_generic_set.html#afc416a90578a18cc5d1a89da4a77d642',1,'Topos.Core.Generic.GenericSet.Intersection(GenericSet&lt; T &gt; s1, GenericSet&lt; T &gt; s2)'],['../class_topos_1_1_core_1_1_generic_1_1_generic_set.html#a710f5dc254b9748425c9817951b89f7e',1,'Topos.Core.Generic.GenericSet.Intersection(params GenericSet&lt; T &gt;[] sets)'],['../class_topos_1_1_core_1_1_set.html#a9074f2c3c775cd4049e21cf45683dd9a',1,'Topos.Core.Set.Intersection(Set s1, Set s2)'],['../class_topos_1_1_core_1_1_set.html#ad73c941db33d28088cd0b323fb03f103',1,'Topos.Core.Set.Intersection(params Set[] sets)']]],
-  ['invariant_11',['Invariant',['../class_topos_1_1_core_1_1_invariant.html#a4aa65d7be849484938513d81ad0b7ea1',1,'Topos.Core.Invariant.Invariant()'],['../class_topos_1_1_core_1_1_invariant.html',1,'Topos.Core.Invariant']]],
-  ['invariant_2ecs_12',['Invariant.cs',['../_invariant_8cs.html',1,'']]],
-  ['invariantexception_13',['InvariantException',['../class_topos_1_1_core_1_1_topos_exceptions_1_1_invariant_exception.html#acc466a50da69075db80fae33137a0110',1,'Topos.Core.ToposExceptions.InvariantException.InvariantException()'],['../class_topos_1_1_core_1_1_topos_exceptions_1_1_invariant_exception.html',1,'Topos.Core.ToposExceptions.InvariantException']]],
-  ['invariantexception_2ecs_14',['InvariantException.cs',['../_invariant_exception_8cs.html',1,'']]],
+  ['indeterminate_11',['Indeterminate',['../class_topos_1_1_core_1_1_indeterminate.html#a4aa65d7be849484938513d81ad0b7ea1',1,'Topos.Core.Indeterminate.Indeterminate()'],['../class_topos_1_1_core_1_1_indeterminate.html',1,'Topos.Core.Indeterminate']]],
+  ['indeterminate_2ecs_12',['Indeterminate.cs',['../_indeterminate_8cs.html',1,'']]],
+  ['indeterminateexception_13',['InvariantException',['../class_topos_1_1_core_1_1_topos_exceptions_1_1_indeterminate_exception.html#acc466a50da69075db80fae33137a0110',1,'Topos.Core.ToposExceptions.InvariantException.InvariantException()'],['../class_topos_1_1_core_1_1_topos_exceptions_1_1_indeterminate_exception.html',1,'Topos.Core.ToposExceptions.InvariantException']]],
+  ['indeterminateexception_2ecs_14',['InvariantException.cs',['../_indeterminate_exception_8cs.html',1,'']]],
   ['inverse_15',['Inverse',['../class_topos_1_1_core_1_1_ordered_tuple.html#aad5fb0cf80f4ebb4d45ae7337332170f',1,'Topos::Core::OrderedTuple']]],
   ['inversemap_16',['InverseMap',['../class_topos_1_1_core_1_1_binary_relation.html#ad6fc4ee8d33ceba4e7ff3175f73c5568',1,'Topos::Core::BinaryRelation']]],
   ['isantisymmetric_17',['IsAntiSymmetric',['../class_topos_1_1_core_1_1_binary_relation.html#a2b7e23bf1f78bc85c7625650499edf32',1,'Topos::Core::BinaryRelation']]],
