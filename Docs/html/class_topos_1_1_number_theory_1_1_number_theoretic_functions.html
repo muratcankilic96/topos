@@ -135,7 +135,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Computes the divisor function. Returns the sum of xth powers of divisors of n. </p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">ArgumentOutOfRangeException</td><td>Divisor function can only take positive integers.</td></tr>
+    <tr><td class="paramname">UndefinedDomainException</td><td>Divisor function can only take positive integers.</td></tr>
   </table>
   </dd>
 </dl>
@@ -177,7 +177,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Computes a special case of divisor function. Returns the sum of divisors of n. Degree 1: σ₁(n) = σ(n) </p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">ArgumentOutOfRangeException</td><td>Divisor function can only take positive integers.</td></tr>
+    <tr><td class="paramname">UndefinedDomainException</td><td>Divisor function can only take positive integers.</td></tr>
   </table>
   </dd>
 </dl>
@@ -218,7 +218,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Computes a special case of divisor function. Returns the number of divisors of n. Degree 0: σ₀(n) = τ(n) </p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">ArgumentOutOfRangeException</td><td>Divisor function can only take positive integers.</td></tr>
+    <tr><td class="paramname">UndefinedDomainException</td><td>Divisor function can only take positive integers.</td></tr>
   </table>
   </dd>
 </dl>
@@ -259,7 +259,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Computes how many positive relatively prime integers are there, up to the given integer. </p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">ArgumentOutOfRangeException</td><td>Euler totient function can only take nonnegative integers.</td></tr>
+    <tr><td class="paramname">UndefinedDomainException</td><td>Euler totient function can only take nonnegative integers.</td></tr>
   </table>
   </dd>
 </dl>
@@ -298,6 +298,12 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Möbius μ function is a function that returns either -1, 0, or 1 depending on the integer. It is used for Möbius inversion formula. </p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">UndefinedDomainException</td><td>Möbius μ function must take positive integers.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">n</td><td>A positive integer</td></tr>
