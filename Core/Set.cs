@@ -352,10 +352,9 @@ namespace Topos.Core
 
         /// <summary>
         /// Checks whether the sets are disjoint or not.
-        /// Every finite set is countable.
         /// </summary>
         /// <returns>Whether the sets are disjoint or not.</returns>
-        public static bool AreDisjoint(Set a, Set b) => true;
+        public static bool IsDisjoint(Set a, Set b) => Intersection(a, b).IsEmpty();
 
         #endregion
 

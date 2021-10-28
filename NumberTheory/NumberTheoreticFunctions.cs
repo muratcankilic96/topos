@@ -28,7 +28,7 @@ namespace Topos.NumberTheory
             else if (n < 2) return n;
 
             // Assume all integers up to the given integer are relatively prime.
-            int count = n;
+            long count = n;
 
             // Iterate up to the square root of n.
             // Smallest prime factor of any n is less than or equal to sqrt(n).

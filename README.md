@@ -9,7 +9,7 @@ ZFC ensures that there are no atomic elements, however, to increase comprehensio
 Currently supported classes are:
 
 Topos.Core
-* MathObject *(abstract)*
+* MathObject *(abstract)*,
   * Element
     * Indeterminate
     * Number *(abstract)*
@@ -39,10 +39,11 @@ Topos.Core.Exceptions
       * ComplexDomainException
 
 Topos.NumberTheory
+* ICongruence<T> *(interface)*
 * MathObject *(from Topos.Core)*
-  * Congruence<T> *(abstract)*
-    * IntegerCongruence
+  * IntegerCongruence
 * Division *(static)*
+* Fibonacci *(static)*
 * NumberTheoreticFunctions *(static)*
 * Primality *(static)*
 
@@ -56,7 +57,8 @@ Topos.NumberTheory:
 * Modular arithmetic over integers
   * Finding solutions of x^2 ≡ a (mod n)
 * Linear Diophantine equations
-* Fibonacci and Lucas sequences
+* Aliquot sums, perfect numbers and other related concepts
+* Sums of squares
 * Continued fractions
 
 ISSUES:

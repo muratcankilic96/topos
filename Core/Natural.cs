@@ -1,4 +1,5 @@
 ﻿using static System.Math;
+using System;
 
 namespace Topos.Core
 {
@@ -7,7 +8,7 @@ namespace Topos.Core
     /// </summary>
     public class Natural : Integer
     {
-        private uint m_value;
+        private ulong m_value;
         public override double Value {
             get
             {
@@ -15,7 +16,7 @@ namespace Topos.Core
             }
             set
             {
-                m_value = (uint) Abs(value);
+                m_value = Convert.ToUInt64(Abs(value));
             }
         }
 
@@ -31,7 +32,7 @@ namespace Topos.Core
         /// Creates a natural number
         /// </summary>
         /// <param name="value">Value of the natural number</param>
-        public Natural(uint value)
+        public Natural(ulong value)
         {
             Value = value;
         }
@@ -41,10 +42,11 @@ namespace Topos.Core
             return Value.ToString();
         }
 
-        public static implicit operator Natural(uint i) => new Natural(i);
-        public static implicit operator Natural(int i) => new Natural((uint) Abs(i));
+        public static implicit operator Natural(ulong i) => new Natural(i);
+        public static implicit operator Natural(long i) => new Natural((uint) Abs(i));
+        public static implicit operator Natural(int i) => new Natural((uint)Abs(i));
         public static implicit operator Natural(Complex c) => new Natural((uint) c.Real.Value);
-        public static implicit operator uint(Natural i) => (uint) i.Value;
+        public static implicit operator ulong(Natural i) => (ulong) i.Value;
         public static implicit operator double(Natural i) => (double) i.Value;
     }
 }

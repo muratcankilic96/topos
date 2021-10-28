@@ -1,4 +1,5 @@
 ﻿using System;
+using static System.Math;
 using Topos.Core.ToposExceptions;
 
 namespace Topos.Core
@@ -49,26 +50,26 @@ namespace Topos.Core
             {
                 Exponential a = (Exponential)Base;
                 Real b = (Real)Index;
-                return new Real(Math.Pow(a.Compute(), b));
+                return new Real(Pow(a.Compute(), b));
             }
             else if(Base is Real && Index is Exponential)
             {
                 Real a = (Real)Base;
                 Exponential b = (Exponential)Index;
-                return new Real(Math.Pow(a, b.Compute()));
+                return new Real(Pow(a, b.Compute()));
             }
             else if(Base is Exponential && Index is Exponential)
             {
                 Exponential a = (Exponential)Base;
                 Exponential b = (Exponential)Index;
-                return new Real(Math.Pow(a.Compute(), b.Compute()));
+                return new Real(Pow(a.Compute(), b.Compute()));
             }
             // Check whether the representation is a real number or not
             else if (Base is Real && Index is Real)
             {
                 Real a = (Real)Base;
                 Real b = (Real)Index;
-                return new Real(Math.Pow(a, b));
+                return new Real(Pow(a, b));
             }
             else if (Base is Complex || Index is Complex)
                 throw new ComplexDomainException();

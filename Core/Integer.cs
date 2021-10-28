@@ -9,7 +9,7 @@ namespace Topos.Core
     /// </summary>
     public class Integer : Real
     {
-        private int m_value;
+        private long m_value;
         public override double Value {
             get
             {
@@ -17,7 +17,7 @@ namespace Topos.Core
             }
             set
             {
-                m_value = (int) value;
+                m_value = Convert.ToInt64(value);
             }
         }
 
@@ -33,7 +33,7 @@ namespace Topos.Core
         /// Creates an integer
         /// </summary>
         /// <param name="value">Value of the integer</param>
-        public Integer(int value)
+        public Integer(long value)
         {
             Value = value;
         }
@@ -43,10 +43,9 @@ namespace Topos.Core
             return Value.ToString();
         }
 
-        public static implicit operator Integer(int i) => new Integer(i);
-        public static implicit operator Integer(uint i) => new Integer((int) i);
-        public static implicit operator Integer(Complex c) => new Integer((int) c.Real.Value);
-        public static implicit operator int(Integer i) => (int) i.Value;
+        public static implicit operator Integer(long i) => new Integer(i);
+        public static implicit operator Integer(Complex c) => new Integer((long) c.Real.Value);
+        public static implicit operator long(Integer i) => (long) i.Value;
         public static implicit operator double(Integer i) => (double) i.Value;
     }
 }

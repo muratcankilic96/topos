@@ -9,13 +9,13 @@ namespace Topos.NumberTheory
     /// <summary>
     /// Integer congruence relations provide modular arithmetic on base n.
     /// </summary>
-    public class IntegerCongruence: Congruence<Integer>
+    public class IntegerCongruence: ICongruence<Integer>
     {
         #region core
         /// <summary>
         /// Base of the integer congruence relation structure.
         /// </summary>
-        public override Integer Base
+        public Integer Base
         {
             get; set;
         }
@@ -38,7 +38,7 @@ namespace Topos.NumberTheory
         /// <param name="a">First integer modulo n</param>
         /// <param name="b">Second integer modulo n</param>
         /// <returns>Whether given integers are congruent to each other mod n</returns>
-        public override bool IsCongruent(Integer a, Integer b)
+        public bool IsCongruent(Integer a, Integer b)
         {
             return Mod(a) == Mod(b);
         }
@@ -48,7 +48,7 @@ namespace Topos.NumberTheory
         /// </summary>
         /// <param name="a">Integer to be operated</param>
         /// <returns>Result of the modulo operation</returns>
-        public override Integer Mod(Integer a)
+        public Integer Mod(Integer a)
         {
             return (a % Base + Base) % Base;
         }
@@ -65,8 +65,8 @@ namespace Topos.NumberTheory
         public Integer Mod(Exponential exp)
         {
             // Extract base and index
-            int expBase  = (Integer) exp.Base;
-            int expIndex = (Integer) exp.Index;
+            long expBase  = (Integer) exp.Base;
+            long expIndex = (Integer) exp.Index;
 
             // Index must non-negative.
             if(expIndex < 0 && MultiplicativeInverse(expBase) == 0)
@@ -83,7 +83,7 @@ namespace Topos.NumberTheory
 
             // Iteration
             expBase = Mod(expBase);
-            int val = expBase;
+            long val = expBase;
             for (Integer i = 2; i <= expIndex; i++)
                 val = Mod(val * expBase);
             return val;

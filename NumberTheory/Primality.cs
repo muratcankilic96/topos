@@ -68,7 +68,7 @@ namespace Topos.NumberTheory
             else if (n == 1 || n == 0) return new Set();
             else if (n == 2) return new Set(2);
 
-            // << TO-DO: Performance tweaqk for very large integers. Maybe Sieve of Atkin? >>
+            // << TO-DO: Performance tweak for very large integers. Maybe Sieve of Atkin? >>
 
             // Initialize the list of numbers.
             Set sieve = new Set();
@@ -111,9 +111,9 @@ namespace Topos.NumberTheory
 
                 if (n % p == 0) 
                 {
-                    int exp = 0;
+                    long exp = 0;
                     // Use value type to protect the reference.
-                    int j = n;
+                    long j = n;
 
                     // Divide until division is not possible.
                     while (j % p == 0) 

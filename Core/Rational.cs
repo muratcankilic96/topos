@@ -56,7 +56,7 @@ namespace Topos.Core
         /// </summary>
         /// <param name="numerator">Numerator (upper part) of the rational number</param>
         /// <param name="denominator">Denominator (lower part) of the rational number</param>
-        public Rational(int numerator, int denominator)
+        public Rational(Integer numerator, Integer denominator)
         {
             Numerator = numerator;
             if (denominator != 0)
@@ -90,10 +90,10 @@ namespace Topos.Core
                 }
 
                 // Compute Gcd to simplify the representation of rational number
-                int divisor = Division.Gcd((int)numerator, denominator);
+                long divisor = Division.Gcd((long)numerator, denominator);
 
                 // Assign values
-                Numerator = (int)(numerator / divisor);
+                Numerator = (long)(numerator / divisor);
                 Denominator = denominator / divisor;
             }
         }
@@ -115,9 +115,9 @@ namespace Topos.Core
         //// Additive operations use the similar pattern, so they are combined in single function.
         private static Rational Additive(Rational a, Rational b)
         {
-            int denominator = Division.Lcm(a.Denominator, b.Denominator);
-            int leftMultiplier = denominator / a.Denominator;
-            int rightMultiplier = denominator / b.Denominator;
+            Integer denominator = Division.Lcm(a.Denominator, b.Denominator);
+            Integer leftMultiplier = denominator / a.Denominator;
+            Integer rightMultiplier = denominator / b.Denominator;
 
             return new Rational(a.Numerator * leftMultiplier + b.Numerator * rightMultiplier, denominator);
         }

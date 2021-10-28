@@ -71,7 +71,7 @@ $(function() {
 <p >ZFC ensures that there are no atomic elements, however, to increase comprehension, I included atomic elements where Element is its base class.</p>
 <p >Currently supported classes are:</p>
 <p ><a class="el" href="namespace_topos_1_1_core.html">Topos.Core</a></p><ul>
-<li>MathObject *(abstract)*<ul>
+<li>MathObject *(abstract)*,<ul>
 <li>Element<ul>
 <li>Indeterminate</li>
 <li>Number *(abstract)*<ul>
@@ -123,14 +123,13 @@ $(function() {
 </li>
 </ul>
 <p ><a class="el" href="namespace_topos_1_1_number_theory.html">Topos.NumberTheory</a></p><ul>
+<li>ICongruence&lt;T&gt; *(interface)*</li>
 <li>MathObject *(from <a class="el" href="namespace_topos_1_1_core.html">Topos.Core</a>)*<ul>
-<li>Congruence&lt;T&gt; *(abstract)*<ul>
 <li>IntegerCongruence</li>
 </ul>
 </li>
-</ul>
-</li>
 <li>Division *(static)*</li>
+<li>Fibonacci *(static)*</li>
 <li>NumberTheoreticFunctions *(static)*</li>
 <li>Primality *(static)*</li>
 </ul>
@@ -145,7 +144,8 @@ $(function() {
 </ul>
 </li>
 <li>Linear Diophantine equations</li>
-<li>Fibonacci and Lucas sequences</li>
+<li>Aliquot sums, perfect numbers and other related concepts</li>
+<li>Sums of squares</li>
 <li>Continued fractions</li>
 </ul>
 <p >ISSUES:</p><ul>

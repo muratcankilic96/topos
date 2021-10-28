@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['universal_0',['Universal',['../namespace_topos_1_1_core.html#a5d5e2726e6807e113c8c6c7c7a2ca5fca7641e5f4e7e8517bd0477fd81e3de1b8',1,'Topos::Core']]]
+  ['ln2_0',['ln2',['../namespace_topos_1_1_core.html#ae283d7e0646847c61940677bd795f152a2750d1cc98b49e9710b8ea7ed76c2f54',1,'Topos::Core']]]
 ];
